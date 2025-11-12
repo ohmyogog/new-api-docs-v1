@@ -3,7 +3,8 @@ import { defineI18nUI } from 'fumadocs-ui/i18n';
 import { i18n } from '@/lib/i18n';
 import '../global.css';
 import { Inter } from 'next/font/google';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
+import { createMetadata, baseUrl } from '@/lib/metadata';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -37,24 +38,58 @@ const { provider } = defineI18nUI(i18n, {
   },
 });
 
+const titleMap: Record<
+  string,
+  { default: string; template: string; description: string }
+> = {
+  en: {
+    default: 'New API',
+    template: '%s | New API',
+    description:
+      'The foundational infrastructure for AI applications. An intelligent gateway connecting all AI ecosystems with enterprise-grade asset management and unified API orchestration.',
+  },
+  zh: {
+    default: 'New API',
+    template: '%s | New API',
+    description:
+      '新一代 AI 应用基础设施平台。连接全球 AI 生态，提供企业级智能网关与资产管理，赋能每一个 AI 应用场景。',
+  },
+  ja: {
+    default: 'New API',
+    template: '%s | New API',
+    description:
+      '次世代 AI アプリケーション基盤プラットフォーム。グローバル AI エコシステムを接続し、エンタープライズグレードのインテリジェントゲートウェイと資産管理を提供。',
+  },
+};
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const lang = (await params).lang;
+  const titles = titleMap[lang] || titleMap.en;
 
-  return {
-    metadataBase: new URL(
-      process.env.NEXT_PUBLIC_URL || process.env.VERCEL_URL
-        ? `https://${process.env.VERCEL_URL}`
-        : 'http://localhost:3000'
-    ),
+  return createMetadata({
+    metadataBase: baseUrl,
     title: {
-      default: 'My App',
-      template: '%s | My App',
+      default: titles.default,
+      template: titles.template,
     },
-    description: 'Documentation for My App',
+    description: titles.description,
+    keywords: [
+      'AI Infrastructure',
+      'AI Gateway',
+      'AI Asset Management',
+      'API Orchestration',
+      'AI Application Platform',
+      'Multi-Model Integration',
+      'Enterprise AI',
+      'AI Ecosystem',
+      'Unified AI Interface',
+      'Intelligent API Management',
+    ],
+    authors: [{ name: 'New API Team' }],
     alternates: {
       languages: {
         en: '/en',
@@ -62,8 +97,15 @@ export async function generateMetadata({
         ja: '/ja',
       },
     },
-  };
+  });
 }
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: dark)', color: '#0A0A0A' },
+    { media: '(prefers-color-scheme: light)', color: '#fff' },
+  ],
+};
 
 export default async function RootLayout({
   params,
