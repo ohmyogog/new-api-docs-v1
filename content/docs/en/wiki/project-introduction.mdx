@@ -1,155 +1,209 @@
 ﻿---
 title: Project Introduction
+description: Learn about New API, a next-generation AI gateway and asset management system
 ---
 
-`<div class="text-center" markdown>`
-![New API Logo](/assets/logo.png)
+import { Callout } from 'fumadocs-ui/components/callout';
 
-`<strong style="font-size: 1.5em">`New API`</strong>`
+<div className="my-8 text-center">
+  <img
+    src="/assets/logo.png"
+    alt="New API Logo"
+    className="mx-auto"
+    width="120"
+  />
+  <h1 className="mt-4 mb-2 text-4xl font-bold">New API</h1>
+  <img
+    src="/assets/trendshift.svg"
+    alt="NewAPI Trendshift Badge"
+    className="mx-auto mt-4"
+    style={{ width: '250px', height: '55px' }}
+    width="250"
+    height="55"
+  />
+</div>
 
-`<img src="/assets/trendshift.svg" alt="NewAPI_Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/ />`
+## Overview
 
-`</div>`
+New API is a next-generation large model gateway and AI asset management system, built upon [One API](https://github.com/songquanpeng/one-api). The project provides a unified interface for managing and utilizing various AI model services.
 
-New API is a next-generation large model gateway and AI asset management system, developed based on [One API](https://github.com/songquanpeng/one-api). The project aims to provide a unified interface for managing and utilizing various AI model services, including but not limited to OpenAI, Anthropic, Gemini, and Midjourney.
+<Callout type="info">
+  New API seamlessly integrates with major AI platforms including OpenAI,
+  Anthropic, Google Gemini, Midjourney, and many more.
+</Callout>
 
-## 🤝 Our Trusted Partners
+### Key Features
 
-`<p align="center">``<strong>`In no particular order`</strong>``</p>`
+- **Unified Interface** - Single API endpoint for multiple AI providers
+- **Secure Management** - Advanced authentication and authorization
+- **Usage Analytics** - Comprehensive tracking and reporting
+- **High Performance** - Optimized for speed and reliability
+- **Multi-tenant Support** - Perfect for teams and enterprises
 
-`<div class="text-center" markdown>`
-`<a href="https://www.cherry-ai.com/" target="_blank">`
-`<img src="/assets/partner/cherry-studio.png" alt="Cherry Studio" height="120"/ />`
-`</a>`
-`<a href="https://bda.pku.edu.cn/" target="_blank">`
-`<img src="/assets/partner/pku.png" alt="Peking University" height="120"/ />`
-`</a>`
-`<a href="https://www.compshare.cn/?ytag=GPU_yy_gh_newapi" target="_blank">`
-`<img src="/assets/partner/ucloud.png" alt="UCloud" height="120"/ />`
-`</a>`
-`<a href="https://www.aliyun.com/" target="_blank">`
-`<img src="/assets/partner/aliyun.png" alt="Alibaba Cloud" height="120"/ />`
-`</a>`
-`<a href="https://io.net/" target="_blank">`
-`<img src="/assets/partner/io-net.png" alt="IO.NET" height="120"/ />`
-`</a>`
-`</div>`
+## Our Trusted Partners
 
-## 📜 License
+<p className="text-muted-foreground mb-6 text-center text-sm">
+  In no particular order
+</p>
 
-New API uses a **Usage-Based Dual Licensing** model:
+<div className="my-8 flex flex-wrap items-center justify-center gap-6">
+  <a
+    href="https://www.cherry-ai.com/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-block"
+  >
+    <img
+      src="/assets/partner/cherry-studio.png"
+      alt="Cherry Studio"
+      height="100"
+      className="h-[100px] w-auto"
+    />
+  </a>
+  <a
+    href="https://bda.pku.edu.cn/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-block"
+  >
+    <img
+      src="/assets/partner/pku.png"
+      alt="Peking University"
+      height="100"
+      className="h-[100px] w-auto"
+    />
+  </a>
+  <a
+    href="https://www.compshare.cn/?ytag=GPU_yy_gh_newapi"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-block"
+  >
+    <img
+      src="/assets/partner/ucloud.png"
+      alt="UCloud"
+      height="100"
+      className="h-[100px] w-auto"
+    />
+  </a>
+  <a
+    href="https://www.aliyun.com/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-block"
+  >
+    <img
+      src="/assets/partner/aliyun.png"
+      alt="Alibaba Cloud"
+      height="100"
+      className="h-[100px] w-auto"
+    />
+  </a>
+  <a
+    href="https://io.net/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-block"
+  >
+    <img
+      src="/assets/partner/io-net.png"
+      alt="IO.NET"
+      height="100"
+      className="h-[100px] w-auto"
+    />
+  </a>
+</div>
 
-**Core Principles:**
+## License
 
-- **Default License:** The project is available by default under the **GNU Affero General Public License v3.0 (AGPLv3)**. Any user may use it for free, provided they comply with the AGPLv3 terms and the additional restrictions listed below.
-- **Commercial License:** In specific commercial scenarios, or when you require rights beyond AGPLv3, you **must** obtain a **Commercial License**.
+New API uses a **Usage-Based Dual Licensing** model.
 
-The full and latest license text can be found here: [Project LICENSE](https://github.com/QuantumNous/new-api/blob/main/LICENSE).
+<Callout type="warn">
+  Please read the full license terms in the [Project
+  LICENSE](https://github.com/QuantumNous/new-api/blob/main/LICENSE) before
+  using New API.
+</Callout>
 
-### 1. Open Source License (AGPLv3) - For Basic Usage
+### Open Source License (AGPLv3)
 
-- Under the terms of **AGPLv3**, you are free to use, modify, and distribute New API. The full text of AGPLv3 is available at [https://www.gnu.org/licenses/agpl-3.0.html](https://www.gnu.org/licenses/agpl-3.0.html).
-- **Core Obligation:** If you modify New API and provide it as a network service (SaaS), or distribute a modified version, you must make the corresponding **complete source code** available to all users under the AGPLv3 license.
-- **Additional Restriction (Important):** When using only the AGPLv3 open source license, you **must** retain all original branding, LOGO, and copyright statement information in the project code. **You are prohibited from modifying, removing, or concealing** this information in any form. A Commercial License is required to remove them.
-- Before use, please ensure you carefully read and understand all terms of AGPLv3 and the above additional restriction.
+Under AGPLv3, you can freely use, modify, and distribute New API for personal and open-source projects.
 
-### 2. Commercial License (Commercial License) - For Advanced Scenarios & Closed Source Needs
+**Key Terms:**
 
-In any of the following scenarios, you **must** contact us to obtain and sign a Commercial License to legally use New API:
+- Free to use, modify, and distribute
+- Full license text: [GNU AGPLv3](https://www.gnu.org/licenses/agpl-3.0.html)
+- **Core Obligation**: If you modify and deploy as a network service (SaaS), you must make your complete source code available under AGPLv3
+- **Branding Requirement**: You must retain all original branding, logos, and copyright notices
 
-- **Scenario 1: Removal of Branding and Copyright Information**  
-  You wish to remove the New API LOGO, copyright statements in the UI interface, or other branding elements from your product or service.
+<Callout type="error">
+  You cannot remove or modify New API branding when using only the AGPLv3
+  license. A Commercial License is required for white-labeling.
+</Callout>
 
-- **Scenario 2: Avoidance of AGPLv3 Open Source Obligations**  
-  You have modified New API and wish to:
-  - Offer it as a network service (SaaS) **without** disclosing your modified source code to your service users.
-  - Distribute a software product integrated with New API **without** releasing your product under the AGPLv3 license or open-sourcing the code.
+### Commercial License
 
-- **Scenario 3: Enterprise Policy & Integration Needs**
-  - Your organization’s policies, client contracts, or project requirements prohibit the use of AGPLv3-licensed software.
-  - You require OEM integration and need to redistribute New API as part of your closed-source commercial product.
+You **must** obtain a Commercial License in the following scenarios:
 
-- **Scenario 4: Need for Commercial Support and Assurances**  
-  You require commercial assurances not provided by AGPLv3, such as official technical support.
+**Scenario 1: White-Labeling**
 
-**Obtaining a Commercial License:**  
-Please contact the New API team via email at [support@quantumnous.com](mailto:support@quantumnous.com) to discuss commercial authorization matters.
+- You want to remove or modify New API logos, branding, or copyright notices in your product.
 
-### 3. Contributions
+**Scenario 2: Closed-Source SaaS**
 
-- We welcome community contributions to New API. All contributions submitted to this project (e.g., via Pull Request) are deemed to be provided under the **AGPLv3** license.
-- By submitting a contribution, you agree that your code is licensed to this project and all subsequent users under the AGPLv3 license (regardless of whether those users ultimately follow AGPLv3 or a Commercial License).
-- You also understand and agree that your contribution may be included in versions of New API distributed under a Commercial License.
+- You've modified New API and want to offer it as a service without open-sourcing your modifications.
 
-### 4. Other Terms
+**Scenario 3: Enterprise Needs**
 
-- The specific terms, conditions, and pricing of the Commercial License are governed by a formal commercial license agreement executed by both parties.
-- Project maintainers reserve the right to update this licensing policy as needed. Relevant updates will be notified through official project channels (e.g., code repository, official website).
+- Your organization's policies prohibit AGPLv3 software, or you need OEM integration rights.
 
----
+**Scenario 4: Commercial Support**
 
-### New API Licensing (English)
+- You require official technical support, SLAs, and commercial assurances.
 
-This page describes the software license of the New API project (not this documentation site).
+**Obtaining a Commercial License:**
 
-This project uses a **Usage-Based Dual Licensing** model.
+For commercial licensing inquiries, please email: [support@quantumnous.com](mailto:support@quantumnous.com)
 
-**Core Principles:**
+### Contributions
 
-- **Default License:** The project is available by default under the **GNU Affero General Public License v3.0 (AGPLv3)**, provided you comply with both the AGPLv3 terms and the additional restriction below.
-- **Commercial License:** For specific commercial scenarios, or if you require rights beyond AGPLv3, you **must** obtain a **Commercial License**.
+All contributions to New API are licensed under AGPLv3 and may be included in both open-source and commercial distributions.
 
-For the full and latest license text, see the project's [LICENSE](https://github.com/QuantumNous/new-api/blob/main/LICENSE).
+**By Contributing:**
 
-#### 1. Open Source License: AGPLv3 – For Basic Usage
+- Your code is licensed under AGPLv3 to this project and all users
+- Your contribution may be included in Commercial License distributions
+- You retain copyright of your contributions
 
-- Under the terms of **AGPLv3**, you are free to use, modify, and distribute New API. Full text: [https://www.gnu.org/licenses/agpl-3.0.html](https://www.gnu.org/licenses/agpl-3.0.html).
-- **Core Obligation:** If you modify New API and provide it as a network service (SaaS), or distribute a modified version, you must make the **complete corresponding source code** available to all users under AGPLv3.
-- **Additional Restriction (Important):** When using only the AGPLv3 license, you **must** retain all original branding, logos, and copyright statements in the project. **You are prohibited from modifying, removing, or concealing** such information. A Commercial License is required to remove them.
-- Please read and ensure you fully understand AGPLv3 and the above additional restriction before use.
+### Additional Terms
 
-#### 2. Commercial License – For Advanced Scenarios & Closed Source Needs
+- Commercial license terms, conditions, and pricing are governed by formal agreements
+- License policies may be updated via official channels (GitHub, website)
+- For disputes, please refer to the formal [LICENSE](https://github.com/QuantumNous/new-api/blob/main/LICENSE) document
 
-You **must** contact us to obtain and sign a Commercial License in any of the following scenarios to legally use New API:
+## Disclaimer
 
-- **Scenario 1: Removal of Branding and Copyright**  
-  You wish to remove the New API logo, copyright statement, or other branding elements from your product or service.
+<Callout type="error">
+  Please read and understand these important notices before using New API.
+</Callout>
 
-- **Scenario 2: Avoidance of AGPLv3 Open Source Obligations**  
-  You have modified New API and wish to:
-  - Offer it as a network service (SaaS) **without** disclosing your modifications' source code to your users.
-  - Distribute a software product integrated with New API **without** releasing your product under AGPLv3 or open-sourcing the code.
+**1. AI Provider Terms of Service**
 
-- **Scenario 3: Enterprise Policy & Integration Needs**
-  - Your organization’s policies, client contracts, or project requirements prohibit the use of AGPLv3-licensed software.
-  - You require OEM integration and need to redistribute New API as part of your closed-source commercial product.
+Users must comply with all applicable AI provider terms of service, including [OpenAI's Terms of Use](https://openai.com/policies/terms-of-use), Anthropic's policies, and other relevant provider agreements.
 
-- **Scenario 4: Commercial Support and Assurances**  
-  You require commercial assurances not provided by AGPLv3, such as official technical support.
+**2. Educational and Personal Use**
 
-**Obtaining a Commercial License:**  
-Please contact the New API team at [support@quantumnous.com](mailto:support@quantumnous.com) to discuss commercial licensing.
+This project is primarily intended for personal study and research. Stability is not guaranteed, and official technical support may not be provided under the open-source license.
 
-#### 3. Contributions
+**3. AI Regulations Compliance**
 
-- Community contributions are welcome. All contributions (e.g., via Pull Request) are deemed to be provided under **AGPLv3**.
-- By submitting a contribution, you agree your code is licensed to this project and all downstream users under AGPLv3 (regardless of whether they ultimately operate under AGPLv3 or a Commercial License).
-- You also acknowledge your contribution may be included in Commercial License distributions of New API.
+Users must comply with relevant AI regulations, including the [Interim Measures for the Management of Generative Artificial Intelligence Services](http://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm) and other applicable AI governance frameworks.
 
-#### 4. Other Terms
+**4. Local Laws and Regulations**
 
-- The specific terms, conditions, and pricing of the Commercial License are governed by a formal commercial license agreement executed by both parties.
-- Project maintainers reserve the right to update this licensing policy via official channels (e.g., repository, website).
+Users are responsible for ensuring compliance with all local, national, and international laws and regulations applicable to their jurisdiction and use case.
 
-## ⚠️ Disclaimer
-
-<Callout type="error" title="Usage Notice">
-  1. Users must comply with OpenAI's [Terms of
-  Use](https://openai.com/policies/terms-of-use) and relevant laws and
-  regulations 2. This project is intended for personal study only, stability is
-  not guaranteed, and technical support is not provided 3. Please comply with
-  the relevant provisions of the [Interim Measures for the Management of
-  Generative Artificial Intelligence
-  Services](http://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm) 4. Please
-  comply with local policies and regulations
+<Callout type="warn">
+  New API is provided "AS IS" without warranty of any kind. The developers and
+  maintainers assume no liability for any damages or legal issues arising from
+  the use of this software.
 </Callout>
