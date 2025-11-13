@@ -43,7 +43,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # 源仓库配置
           SOURCE_REPO: QuantumNous/new-api
-          # 爱发电 API (可选，如需配置请在 Repository Secrets 中添加)
+          # 爱发电 API 配置
           AFDIAN_USER_ID: ${{ secrets.AFDIAN_USER_ID }}
           AFDIAN_TOKEN: ${{ secrets.AFDIAN_TOKEN }}
 
