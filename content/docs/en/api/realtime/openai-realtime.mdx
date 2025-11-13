@@ -914,11 +914,11 @@ Returned when model-generated function call arguments streaming is complete.
 
 Triggered after each "response.done" event to indicate updated rate limits.
 
-| Parameter   | Type         | Required | Description                        | Example Value                                                                     |
-| ----------- | ------------ | -------- | ---------------------------------- | --------------------------------------------------------------------------------- |
-| event_id    | String       | No       | Unique identifier for server event | event_5758                                                                        |
-| type        | String       | No       | Event type                         | rate_limits.updated                                                               |
-| rate_limits | Object array | No       | List of rate limit information     | [{"name": "requests_per_min", "limit": 60, "remaining": 45, "reset_seconds": 35}] |
+| Parameter   | Type         | Required | Description                        | Example Value                                                                       |
+| ----------- | ------------ | -------- | ---------------------------------- | ----------------------------------------------------------------------------------- |
+| event_id    | String       | No       | Unique identifier for server event | event_5758                                                                          |
+| type        | String       | No       | Event type                         | rate_limits.updated                                                                 |
+| rate_limits | Object array | No       | List of rate limit information     | `[{"name": "requests_per_min", "limit": 60, "remaining": 45, "reset_seconds": 35}]` |
 
 #### conversation.created
 
