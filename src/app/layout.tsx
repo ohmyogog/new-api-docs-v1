@@ -1,17 +1,5 @@
-import { Geist, Geist_Mono } from 'next/font/google';
 import type { Viewport } from 'next';
-
-const geist = Geist({
-  variable: '--font-sans',
-  subsets: ['latin'],
-  display: 'swap',
-});
-
-const mono = Geist_Mono({
-  variable: '--font-mono',
-  subsets: ['latin'],
-  display: 'swap',
-});
+import './global.css';
 
 export const viewport: Viewport = {
   themeColor: [
@@ -28,11 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={`${geist.variable} ${mono.variable}`}
-      suppressHydrationWarning
-    >
+    <html lang="en" suppressHydrationWarning>
       <body>{children}</body>
     </html>
   );
