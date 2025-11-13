@@ -47,6 +47,8 @@ interface AfdianResponse {
   em: string;
   data: {
     list: AfdianSponsorItem[];
+    total_page: number;
+    total_count: number;
   };
 }
 
@@ -187,45 +189,75 @@ async function fetchAfdianSponsors(): Promise<SponsorsData | null> {
 
     // Afdian API endpoint
     const API_URL = 'https://afdian.com/api/open/query-sponsor';
-
-    // Generate timestamp and signature
-    const timestamp = Math.floor(Date.now() / 1000);
-    const params = JSON.stringify({
-      page: 1,
-    });
-
-    // Calculate signature: MD5(token + "params" + params + "ts" + ts + "user_id" + user_id)
     const crypto = await import('crypto');
-    const signStr = `${AFDIAN_TOKEN}params${params}ts${timestamp}user_id${AFDIAN_USER_ID}`;
-    const sign = crypto.createHash('md5').update(signStr).digest('hex');
 
-    const response = await fetch(API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        user_id: AFDIAN_USER_ID,
-        params,
-        ts: timestamp,
-        sign,
-      }),
-    });
+    let allSponsors: AfdianSponsorItem[] = [];
+    let currentPage = 1;
+    let totalPage = 1;
 
-    if (!response.ok) {
-      throw new Error(
-        `Afdian API request failed: ${response.status} ${response.statusText}`
-      );
+    // Fetch all pages
+    while (currentPage <= totalPage) {
+      console.log(`Fetching page ${currentPage}/${totalPage}...`);
+
+      // Generate timestamp and signature for this page
+      const timestamp = Math.floor(Date.now() / 1000);
+      const params = JSON.stringify({
+        page: currentPage,
+      });
+
+      // Calculate signature: MD5(token + "params" + params + "ts" + ts + "user_id" + user_id)
+      const signStr = `${AFDIAN_TOKEN}params${params}ts${timestamp}user_id${AFDIAN_USER_ID}`;
+      const sign = crypto.createHash('md5').update(signStr).digest('hex');
+
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: AFDIAN_USER_ID,
+          params,
+          ts: timestamp,
+          sign,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(
+          `Afdian API request failed: ${response.status} ${response.statusText}`
+        );
+      }
+
+      const data = (await response.json()) as AfdianResponse;
+
+      if (data.ec !== 200) {
+        throw new Error(`Afdian API returned error: ${data.em}`);
+      }
+
+      // Add sponsors from this page
+      const pageSponsors = data.data.list || [];
+      allSponsors = allSponsors.concat(pageSponsors);
+
+      // Update total page count from first response
+      if (currentPage === 1) {
+        totalPage = data.data.total_page || 1;
+        console.log(
+          `✓ Total sponsors: ${data.data.total_count || 0}, Total pages: ${totalPage}`
+        );
+      }
+
+      currentPage++;
+
+      // Wait 1 second between requests to avoid rate limiting
+      if (currentPage <= totalPage) {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      }
     }
 
-    const data = (await response.json()) as AfdianResponse;
-
-    if (data.ec !== 200) {
-      throw new Error(`Afdian API returned error: ${data.em}`);
-    }
-
-    const sponsors = data.data.list || [];
-    console.log(`✓ Successfully fetched ${sponsors.length} sponsors`);
+    const sponsors = allSponsors;
+    console.log(
+      `✓ Successfully fetched ${sponsors.length} sponsors from all pages`
+    );
 
     // Categorize by sponsorship amount
     const result: SponsorsData = {
@@ -234,8 +266,16 @@ async function fetchAfdianSponsors(): Promise<SponsorsData | null> {
       bronze: [],
     };
 
+    let skippedCount = 0;
     for (const sponsor of sponsors) {
       const totalAmount = parseFloat(sponsor.all_sum_amount || '0');
+
+      // Skip sponsors with zero amount (refunds or redemption codes)
+      if (totalAmount <= 0) {
+        skippedCount++;
+        continue;
+      }
+
       const sponsorData: Sponsor = {
         name: sponsor.user.name || 'Anonymous Sponsor',
         avatar:
@@ -251,6 +291,12 @@ async function fetchAfdianSponsors(): Promise<SponsorsData | null> {
       } else {
         result.bronze.push(sponsorData);
       }
+    }
+
+    if (skippedCount > 0) {
+      console.log(
+        `ℹ Skipped ${skippedCount} sponsors with zero amount (refunds/redemption codes)`
+      );
     }
 
     // Sort by amount
