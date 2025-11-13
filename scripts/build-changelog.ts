@@ -156,13 +156,13 @@ function formatDownloadLinks(
   if (!assets?.length && !tagName) return '';
 
   const i18n = CHANGELOG_I18N[lang];
-  let markdown = `**${i18n.downloadResources}**\n\n`;
+  let html = `**${i18n.downloadResources}**\n\n<ul>\n`;
 
   // 添加资源文件
   for (const asset of assets) {
     const { name, browser_download_url, size } = asset;
     const sizeStr = formatFileSize(size);
-    markdown += `- [${name}](${browser_download_url}) (${sizeStr})\n`;
+    html += `<li><a href="${browser_download_url}">${name}</a> (${sizeStr})</li>\n`;
   }
 
   // 添加源代码下载链接
@@ -172,11 +172,12 @@ function formatDownloadLinks(
       ['tar.gz', 'tar.gz'],
     ]) {
       const url = `https://github.com/${SOURCE_REPO}/archive/refs/tags/${tagName}.${ext}`;
-      markdown += `- [Source code (${extName})](${url})\n`;
+      html += `<li><a href="${url}">Source code (${extName})</a></li>\n`;
     }
   }
 
-  return markdown;
+  html += '</ul>';
+  return html;
 }
 
 function getVersionType(
@@ -253,7 +254,7 @@ function formatReleasesMarkdown(
     // 添加下载链接
     const downloadLinks = formatDownloadLinks(tag_name, assets, lang);
     if (downloadLinks) {
-      markdown += `${downloadLinks}`;
+      markdown += `${downloadLinks}\n\n`;
     }
 
     markdown += `</Callout>\n\n`;
