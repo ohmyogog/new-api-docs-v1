@@ -32,8 +32,8 @@ const footerContent: Record<
       {
         title: '文档',
         links: [
-          { label: '快速开始', href: 'docs/getting-started' },
-          { label: '安装指南', href: 'docs/installation' },
+          { label: '安装部署', href: 'docs/installation' },
+          { label: '使用指南', href: 'docs/guide' },
           { label: 'API 文档', href: 'docs/api' },
         ],
       },
@@ -142,8 +142,8 @@ const footerContent: Record<
       {
         title: 'Docs',
         links: [
-          { label: 'Quick Start', href: 'docs/getting-started' },
-          { label: 'Installation Guide', href: 'docs/installation' },
+          { label: 'Installation', href: 'docs/installation' },
+          { label: 'User Guide', href: 'docs/guide' },
           { label: 'API Docs', href: 'docs/api' },
         ],
       },
@@ -252,8 +252,8 @@ const footerContent: Record<
       {
         title: 'ドキュメント',
         links: [
-          { label: 'クイックスタート', href: 'docs/getting-started' },
-          { label: 'インストールガイド', href: 'docs/installation' },
+          { label: 'インストール', href: 'docs/installation' },
+          { label: 'ユーザーガイド', href: 'docs/guide' },
           { label: 'APIドキュメント', href: 'docs/api' },
         ],
       },
