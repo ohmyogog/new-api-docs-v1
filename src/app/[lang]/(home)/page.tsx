@@ -8,25 +8,33 @@ const contentMap: Record<
   {
     badge: string;
     title: string;
+    subtitle: string;
+    highlight: string;
     getStarted: string;
     github: string;
   }
 > = {
   en: {
-    badge: 'the AI Gateway you need.',
-    title: 'Build excellent AI applications,',
+    badge: 'The Foundation of Your AI Universe',
+    title: 'Connect all AI providers, manage your AI assets,',
+    subtitle: 'build the',
+    highlight: 'future',
     getStarted: 'Getting Started',
     github: 'GitHub',
   },
   zh: {
-    badge: '你需要的 AI 网关。',
-    title: '构建卓越的 AI 应用,',
+    badge: '人工智能应用基座',
+    title: '承载 AI 应用，管理数字资产，',
+    subtitle: '连接',
+    highlight: '未来',
     getStarted: '快速开始',
     github: 'GitHub',
   },
   ja: {
-    badge: 'あなたに必要な AI ゲートウェイ。',
-    title: '優れた AI アプリケーションを構築,',
+    badge: 'あなたの AI ユニバースの基盤',
+    title: 'すべての AI プロバイダーを接続し、AI アセットを管理し、',
+    subtitle: '',
+    highlight: '未来を構築',
     getStarted: 'はじめに',
     github: 'GitHub',
   },
@@ -51,7 +59,8 @@ export default async function Page({
           <h1 className="leading-tighter my-8 text-4xl font-medium xl:mb-12 xl:text-5xl">
             {content.title}
             <br />
-            your <span className="text-brand">style</span>.
+            {content.subtitle}{' '}
+            <span className="text-brand">{content.highlight}</span>.
           </h1>
           <div className="flex w-fit flex-row flex-wrap items-center justify-center gap-4">
             <Link

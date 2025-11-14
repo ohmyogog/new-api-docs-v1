@@ -42,23 +42,22 @@ const titleMap: Record<
   { default: string; template: string; description: string }
 > = {
   en: {
-    default: 'New API - Enterprise AI Gateway & API Orchestration',
+    default: 'New API - The Foundation of Your AI Universe',
     template: '%s | New API',
     description:
-      'The foundational infrastructure for AI applications. An intelligent gateway connecting all AI ecosystems with enterprise-grade asset management and unified API orchestration.',
+      'Connect all AI providers, manage your AI assets, and build the future on a unified infrastructure platform. Deploy in minutes, scale effortlessly.',
   },
   zh: {
-    default: 'New API - 企业级 AI 网关与 API 编排平台',
+    default: 'New API - AI 基座',
     template: '%s | New API',
     description:
-      '新一代 AI 应用基础设施平台。连接全球 AI 生态，提供企业级智能网关与资产管理，赋能每一个 AI 应用场景。',
+      '承载所有 AI 应用，管理你的数字资产，连接未来的统一基础设施平台。快速部署，轻松扩展。',
   },
   ja: {
-    default:
-      'New API - エンタープライズ AI ゲートウェイ & API オーケストレーション',
+    default: 'New API - あなたの AI ユニバースの基盤',
     template: '%s | New API',
     description:
-      '次世代 AI アプリケーション基盤プラットフォーム。グローバル AI エコシステムを接続し、エンタープライズグレードのインテリジェントゲートウェイと資産管理を提供。',
+      'すべての AI プロバイダーを接続し、AI アセットを管理し、統一されたインフラストラクチャプラットフォームで未来を構築。数分でデプロイ、簡単にスケール。',
   },
 };
 
