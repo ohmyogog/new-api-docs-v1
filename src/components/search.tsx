@@ -12,33 +12,13 @@ import {
   type SharedProps,
 } from 'fumadocs-ui/components/dialog/search';
 import { useDocsSearch } from 'fumadocs-core/search/client';
-import { create } from '@orama/orama';
 import { useI18n } from 'fumadocs-ui/contexts/i18n';
-import { createTokenizer as createMandarinTokenizer } from '@orama/tokenizers/mandarin';
-import { createTokenizer as createJapaneseTokenizer } from '@orama/tokenizers/japanese';
-
-function initOrama(locale?: string) {
-  return create({
-    schema: { _: 'string' },
-    components: {
-      tokenizer:
-        locale === 'zh'
-          ? createMandarinTokenizer()
-          : locale === 'ja'
-            ? createJapaneseTokenizer()
-            : undefined,
-    },
-  });
-}
+import { useSearchConfig } from '@/lib/search/use-search-config';
 
 export default function CustomSearchDialog(props: SharedProps) {
   const { locale } = useI18n();
-  const { search, setSearch, query } = useDocsSearch({
-    type: 'static',
-    initOrama,
-    locale,
-    from: '/api/search',
-  });
+  const searchConfig = useSearchConfig({ locale });
+  const { search, setSearch, query } = useDocsSearch(searchConfig);
 
   return (
     <SearchDialog

@@ -38,7 +38,7 @@ const contentMap: Record<
     getStarted: 'はじめに',
     github: 'GitHub',
   },
-};
+} as const;
 
 export default async function Page({
   params,

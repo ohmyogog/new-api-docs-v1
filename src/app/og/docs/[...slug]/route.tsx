@@ -7,7 +7,7 @@ export const revalidate = false;
 
 export async function GET(
   _req: Request,
-  { params }: RouteContext<'/og/docs/[...slug]'>
+  { params }: { params: Promise<{ slug: string[] }> }
 ) {
   const { slug } = await params;
   const page = source.getPage(slug.slice(0, -1));
@@ -18,7 +18,7 @@ export async function GET(
       <DefaultImage
         title={page.data.title}
         description={page.data.description}
-        site="My App"
+        site="New API"
       />
     ),
     {

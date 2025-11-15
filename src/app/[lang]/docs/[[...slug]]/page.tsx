@@ -13,8 +13,7 @@ import { createRelativeLink } from 'fumadocs-ui/mdx';
 export default async function Page(props: {
   params: Promise<{ lang: string; slug?: string[] }>;
 }) {
-  const params = await props.params;
-  const { slug, lang } = params;
+  const { slug, lang } = await props.params;
   const page = source.getPage(slug, lang);
   if (!page) notFound();
 
@@ -24,16 +23,13 @@ export default async function Page(props: {
     <DocsPage
       toc={page.data.toc}
       full={page.data.full}
-      tableOfContent={{
-        style: 'clerk',
-      }}
+      tableOfContent={{ style: 'clerk', enabled: true }}
     >
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
         <MDX
           components={getMDXComponents({
-            // this allows you to link to other pages with relative file paths
             a: createRelativeLink(source, page) as any,
           })}
         />
@@ -49,16 +45,13 @@ export async function generateStaticParams() {
 export async function generateMetadata(props: {
   params: Promise<{ lang: string; slug?: string[] }>;
 }): Promise<Metadata> {
-  const params = await props.params;
-  const { slug, lang } = params;
+  const { slug, lang } = await props.params;
   const page = source.getPage(slug, lang);
   if (!page) notFound();
 
   return {
     title: page.data.title,
     description: page.data.description,
-    openGraph: {
-      images: getPageImage(page).url,
-    },
+    openGraph: { images: getPageImage(page).url },
   };
 }

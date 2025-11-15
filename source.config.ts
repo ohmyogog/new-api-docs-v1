@@ -19,6 +19,9 @@ export const docs = defineDocs({
 
 export default defineConfig({
   mdxOptions: {
-    // MDX options
+    // Enable production optimizations
+    development: process.env.NODE_ENV === 'development',
+    // Use MDX format for better performance
+    format: 'mdx',
   },
 });

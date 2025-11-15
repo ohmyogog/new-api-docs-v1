@@ -9,9 +9,9 @@ type Locale = (typeof i18n.languages)[number];
 const supportedLanguages = new Set<Locale>(i18n.languages);
 
 function resolveCandidate(value?: string): Locale | undefined {
-  if (!value) return;
-  const normalized = value.toLowerCase() as Locale;
+  if (!value) return undefined;
 
+  const normalized = value.toLowerCase() as Locale;
   if (supportedLanguages.has(normalized)) {
     return normalized;
   }
@@ -21,7 +21,7 @@ function resolveCandidate(value?: string): Locale | undefined {
     return short;
   }
 
-  return;
+  return undefined;
 }
 
 function detectLocale(): string {
