@@ -22,8 +22,6 @@ export const docs = defineDocs({
 
 export default defineConfig({
   mdxOptions: {
-    remarkPlugins: [],
-    rehypePlugins: [],
-    jsx: true,
+    // MDX options
   },
 });
