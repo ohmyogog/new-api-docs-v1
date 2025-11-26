@@ -1,0 +1,123 @@
+---
+title: FAQ
+---
+
+## 💰 Quota-Related Issues
+
+<Callout type="info" title="What is quota? How is it calculated?" collapsible>
+  The quota calculation formula is as follows:
+</Callout>
+
+    Quota = Group Ratio * Model Ratio * (Prompt Token Count + Completion Token Count * Completion Ratio)
+
+    Completion Ratio Explanation:
+
+    - GPT3.5: Fixed at 1.33
+
+    - GPT4: Fixed at 2 (consistent with official)
+
+    Notes:
+
+    - In non-streaming mode, the official API returns the total tokens consumed, but the consumption ratios for prompt and completion are different.
+
+    - The default ratio of New API is consistent with the official ratio and has been adjusted.
+
+<Callout type="info" title="Why does it prompt insufficient quota when the account quota is sufficient?" collapsible>
+  This is because token quota and account quota are separate:
+</Callout>
+
+    - Token quota is only used to set the maximum usage limit.
+    - Users can freely set the token quota.
+    - Please check if your token quota is sufficient.
+
+## 🔧 Channel Configuration Issues
+
+<Callout type="info" title="What are Weight and Priority in Channels?" collapsible>
+  Weight and Priority are two important parameters that control the order and distribution of channel usage:
+</Callout>
+
+    - Priority: A larger number indicates higher priority; channels with higher priority will be used first.
+
+    - Weight: Among channels with the same priority, requests are distributed according to the weight ratio.
+
+    For example:
+
+    - Channels with priority 2 will be used before channels with priority 1.
+
+    - For two channels with the same priority 1, if the weight ratio is 2:1, requests will be distributed in a 2:1 ratio.
+
+<Callout type="info" title="Prompt: No available channels?" collapsible>
+  Please check the following settings:
+</Callout>
+
+    1. User Group Settings
+    2. Channel Group Settings
+    3. Channel Model Settings
+
+<Callout
+  type="info"
+  title="Channel test error: invalid character '<' looking for beginning of value"
+  collapsible
+>
+  This error indicates that the return value is not valid JSON, but an HTML page.
+</Callout>
+
+    The most likely reason is: Your deployment site's IP or proxy node has been blocked by CloudFlare.
+
+<Callout
+  type="info"
+  title="Channel test error: Ratio or price not configured, please contact the administrator to set it."
+  collapsible
+>
+  Please check if the ratio or price has been configured in 'System Settings - Operation Settings - Model Ratio Settings'.
+</Callout>
+
+    Or enable 'Self-use Mode' in 'System Settings - Operation Settings'.
+
+## 🌐 Deployment and Connection Issues
+
+<Callout type="info" title="ChatGPT Next Web error: Failed to fetch" collapsible>
+  Please check the following:
+</Callout>
+
+    1. Do not set BASE_URL during deployment.
+    2. Confirm that the API address and API Key are filled in correctly.
+    3. Check if HTTPS is enabled (browsers will block HTTP requests under HTTPS domains).
+
+<Callout type="info" title="Error: Current group load is saturated, please try again later." collapsible>
+  This indicates that an upstream channel encountered a 429 error (Too Many Requests).
+</Callout>
+
+## 📦 Database and Upgrade Issues
+
+<Callout type="info" title="Will my data be lost after upgrading?" collapsible>
+  It varies depending on the database type:
+</Callout>
+
+    - MySQL: Data will not be lost.
+    - SQLite: You need to mount a volume according to the deployment command to persist the one-api.db database file, otherwise data will be lost after the container restarts.
+
+<Callout type="info" title="Does the database need to be changed before upgrading?" collapsible>
+  Generally, no. The system will automatically adjust during initialization.
+</Callout>
+
+    If special handling is required, it will be explained in the update log and corresponding scripts will be provided.
+
+<Callout
+  type="info"
+  title="Error after manually modifying the database: Database consistency has been corrupted, please contact the administrator?"
+  collapsible
+>
+  This error indicates that invalid channel ID records were detected in the 'ability' table. Common reasons:
+</Callout>
+
+    - Invalid channels in the 'ability' table were not cleaned up synchronously when deleting 'channel' table records.
+    - Each model supported by a channel needs to have a corresponding record in the 'ability' table.
+
+<Callout type="info" title="Can't find your question?">
+  If your question is not answered here, you are welcome to:
+</Callout>
+
+    1. Check the [Installation and Deployment Documentation](../installation)
+    2. [Submit an issue on GitHub](feedback-issues.md)
+    3. Join the [QQ communication group for help](community-interaction.md)
