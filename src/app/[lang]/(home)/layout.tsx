@@ -10,7 +10,7 @@ import { Footer } from '@/components/footer';
 import Link from 'fumadocs-core/link';
 import Image from 'next/image';
 import Preview from '@/../public/assets/dashboard-dark.png';
-import { Book, Settings, Wrench, FileText, PlusIcon } from 'lucide-react';
+import { Rocket, Download, HelpCircle, Code, Sparkles } from 'lucide-react';
 import { getLocalePath } from '@/lib/i18n';
 
 const docNavItems: Record<
@@ -32,31 +32,31 @@ const docNavItems: Record<
         text: 'Getting Started',
         url: '/en/docs',
         description: 'Learn how to deploy and configure New API.',
-        icon: <Book />,
+        icon: <Rocket />,
       },
       {
         text: 'Installation',
         url: '/en/docs/installation/deployment-methods/docker-compose-installation',
         description: 'Various deployment methods and installation guides.',
-        icon: <Settings />,
+        icon: <Download />,
       },
       {
         text: 'Help & Support',
         url: '/en/docs/support/faq',
         description: 'FAQ and community support.',
-        icon: <FileText />,
+        icon: <HelpCircle />,
       },
       {
         text: 'API Reference',
         url: '/en/docs/apis/relay-apis/chat/openai-chat',
         description: 'Complete API documentation and integration guide.',
-        icon: <Wrench />,
+        icon: <Code />,
       },
       {
         text: 'AI Applications',
         url: '/en/docs/apps/cherry-studio',
         description: 'Integration guides for AI applications.',
-        icon: <PlusIcon />,
+        icon: <Sparkles />,
       },
     ],
   },
@@ -67,31 +67,31 @@ const docNavItems: Record<
         text: '快速开始',
         url: '/zh/docs',
         description: '学习如何部署和配置 New API。',
-        icon: <Book />,
+        icon: <Rocket />,
       },
       {
         text: '部署安装',
         url: '/zh/docs/installation/deployment-methods/docker-compose-installation',
         description: '多种部署方式和安装指南。',
-        icon: <Settings />,
+        icon: <Download />,
       },
       {
         text: '帮助支持',
         url: '/zh/docs/support/faq',
         description: '常见问题和社区支持。',
-        icon: <FileText />,
+        icon: <HelpCircle />,
       },
       {
         text: 'API 文档',
         url: '/zh/docs/apis/relay-apis/chat/openai-chat',
         description: '完整的 API 文档和集成指南。',
-        icon: <Wrench />,
+        icon: <Code />,
       },
       {
         text: 'AI 应用',
         url: '/zh/docs/apps/cherry-studio',
         description: 'AI 应用集成指南。',
-        icon: <PlusIcon />,
+        icon: <Sparkles />,
       },
     ],
   },
@@ -102,31 +102,31 @@ const docNavItems: Record<
         text: 'はじめに',
         url: '/ja/docs',
         description: 'New API のデプロイと設定方法を学ぶ。',
-        icon: <Book />,
+        icon: <Rocket />,
       },
       {
         text: 'インストール',
         url: '/ja/docs/installation/deployment-methods/docker-compose-installation',
         description: '様々なデプロイ方法とインストールガイド。',
-        icon: <Settings />,
+        icon: <Download />,
       },
       {
         text: 'ヘルプ＆サポート',
         url: '/ja/docs/support/faq',
         description: 'よくある質問とコミュニティサポート。',
-        icon: <FileText />,
+        icon: <HelpCircle />,
       },
       {
         text: 'API リファレンス',
         url: '/ja/docs/apis/relay-apis/chat/openai-chat',
         description: '完全な API ドキュメントと統合ガイド。',
-        icon: <Wrench />,
+        icon: <Code />,
       },
       {
         text: 'AI アプリケーション',
         url: '/ja/docs/apps/cherry-studio',
         description: 'AI アプリケーション統合ガイド。',
-        icon: <PlusIcon />,
+        icon: <Sparkles />,
       },
     ],
   },
@@ -212,7 +212,7 @@ export default async function Layout({
                     href={docNav.items[1].url}
                     className="lg:col-start-2"
                   >
-                    <Settings className="bg-fd-primary text-fd-primary-foreground mb-2 rounded-md p-1" />
+                    <Download className="bg-fd-primary text-fd-primary-foreground mb-2 rounded-md p-1" />
                     <p className="font-medium">{docNav.items[1].text}</p>
                     <p className="text-fd-muted-foreground text-sm">
                       {docNav.items[1].description}
@@ -223,7 +223,7 @@ export default async function Layout({
                     href={docNav.items[2].url}
                     className="lg:col-start-2"
                   >
-                    <FileText className="bg-fd-primary text-fd-primary-foreground mb-2 rounded-md p-1" />
+                    <HelpCircle className="bg-fd-primary text-fd-primary-foreground mb-2 rounded-md p-1" />
                     <p className="font-medium">{docNav.items[2].text}</p>
                     <p className="text-fd-muted-foreground text-sm">
                       {docNav.items[2].description}
@@ -234,7 +234,7 @@ export default async function Layout({
                     href={docNav.items[3].url}
                     className="lg:col-start-3 lg:row-start-1"
                   >
-                    <Wrench className="bg-fd-primary text-fd-primary-foreground mb-2 rounded-md p-1" />
+                    <Code className="bg-fd-primary text-fd-primary-foreground mb-2 rounded-md p-1" />
                     <p className="font-medium">{docNav.items[3].text}</p>
                     <p className="text-fd-muted-foreground text-sm">
                       {docNav.items[3].description}
@@ -245,7 +245,7 @@ export default async function Layout({
                     href={docNav.items[4].url}
                     className="lg:col-start-3 lg:row-start-2"
                   >
-                    <PlusIcon className="bg-fd-primary text-fd-primary-foreground mb-2 rounded-md p-1" />
+                    <Sparkles className="bg-fd-primary text-fd-primary-foreground mb-2 rounded-md p-1" />
                     <p className="font-medium">{docNav.items[4].text}</p>
                     <p className="text-fd-muted-foreground text-sm">
                       {docNav.items[4].description}

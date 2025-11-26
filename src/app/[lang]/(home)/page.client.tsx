@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { GrainGradient, Dithering } from '@paper-design/shaders-react';
+import { GrainGradient } from '@paper-design/shaders-react';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import { cn } from '@/lib/cn';
@@ -10,6 +10,7 @@ export function Hero() {
   const { resolvedTheme } = useTheme();
   const [showShaders, setShowShaders] = useState(false);
   const [imageReady, setImageReady] = useState(false);
+  const [logoReady, setLogoReady] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -37,51 +38,27 @@ export function Hero() {
           shape="corners"
         />
       )}
-      {showShaders && (
-        <Dithering
-          width={720}
-          height={720}
-          colorBack="#00000000"
-          colorFront={resolvedTheme === 'dark' ? '#8B5CF6' : '#A78BFA'}
-          shape="sphere"
-          type="4x4"
-          scale={0.5}
-          size={3}
-          speed={0.5}
-          rotation={270}
-          className="animate-fd-fade-in absolute duration-400 max-lg:bottom-[-50%] max-lg:left-[-200px] lg:top-[-5%] lg:right-0"
-        />
+
+      {/* Logo */}
+      {mounted && (
+        <div
+          className={cn(
+            'absolute max-lg:bottom-[-20%] max-lg:left-[-100px] lg:top-[-5%] lg:right-[10%]',
+            logoReady ? 'animate-in fade-in zoom-in-95 duration-700' : 'invisible'
+          )}
+        >
+          <Image
+            src="/assets/logo.png"
+            alt="logo"
+            width={500}
+            height={500}
+            className="drop-shadow-2xl"
+            onLoad={() => setLogoReady(true)}
+            priority
+          />
+        </div>
       )}
-      {showShaders && (
-        <Dithering
-          width={620}
-          height={620}
-          colorBack="#00000000"
-          colorFront={resolvedTheme === 'dark' ? '#EC4899' : '#F9A8D4'}
-          shape="sphere"
-          type="4x4"
-          scale={0.45}
-          size={2.5}
-          speed={0.6}
-          rotation={90}
-          className="animate-fd-fade-in absolute duration-600 max-lg:bottom-[-45%] max-lg:left-[-160px] lg:top-[0%] lg:right-[5%]"
-        />
-      )}
-      {showShaders && (
-        <Dithering
-          width={550}
-          height={550}
-          colorBack="#00000000"
-          colorFront={resolvedTheme === 'dark' ? '#06B6D4' : '#22D3EE'}
-          shape="sphere"
-          type="4x4"
-          scale={0.4}
-          size={2}
-          speed={0.7}
-          rotation={180}
-          className="animate-fd-fade-in absolute duration-1000 max-lg:bottom-[-40%] max-lg:left-[-120px] lg:top-[5%] lg:right-[10%]"
-        />
-      )}
+
       {mounted && (
         <Image
           src={
