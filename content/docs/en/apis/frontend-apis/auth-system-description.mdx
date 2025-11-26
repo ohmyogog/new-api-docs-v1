@@ -1,10 +1,11 @@
-```
 ---
 title: Authentication System Description (Auth)
 ---
 
 <Callout type="info" title="Note">
-  The system employs a four-level authentication mechanism: Public, User, Administrator. Root AccessToken is the token generated for you in **Personal Settings - System Access Token** for accessing the **/api** route.
+  The system employs a four-level authentication mechanism: Public, User,
+  Administrator. Root AccessToken is the token generated for you in **Personal
+  Settings - System Access Token** for accessing the **/api** route.
 </Callout>
 
 ## 🔐 Authentication
@@ -13,4 +14,3 @@ title: Authentication System Description (Auth)
 - User: Requires User AccessToken (middleware.UserAuth)
 - Administrator: Requires Administrator AccessToken (middleware.AdminAuth)
 - Root: Only for highest privilege User AccessToken (middleware.RootAuth)
-```
