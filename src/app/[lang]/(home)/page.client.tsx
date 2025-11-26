@@ -44,7 +44,9 @@ export function Hero() {
         <div
           className={cn(
             'absolute max-lg:bottom-[-20%] max-lg:left-[-100px] lg:top-[-5%] lg:right-[10%]',
-            logoReady ? 'animate-in fade-in zoom-in-95 duration-700' : 'invisible'
+            logoReady
+              ? 'animate-in fade-in zoom-in-95 duration-700'
+              : 'invisible'
           )}
         >
           <Image
