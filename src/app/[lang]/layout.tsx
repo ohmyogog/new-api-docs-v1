@@ -127,5 +127,9 @@ export default async function RootLayout({
 }) {
   const lang = (await params).lang;
 
-  return <Provider i18n={provider(lang)}>{children}</Provider>;
+  return (
+    <Provider i18n={provider(lang)} lang={lang}>
+      {children}
+    </Provider>
+  );
 }
