@@ -15,8 +15,8 @@ import {
   Download,
   HelpCircle,
   Sparkles,
-  Briefcase,
   FileCode,
+  BookOpen,
   type LucideIcon,
 } from 'lucide-react';
 import { getLocalePath } from '@/lib/i18n';
@@ -26,7 +26,7 @@ const NAV_ITEMS = [
   { key: 'start', icon: Rocket, path: '' },
   { key: 'install', icon: Download, path: '/installation' },
   { key: 'support', icon: HelpCircle, path: '/support' },
-  { key: 'business', icon: Briefcase, path: '/business' },
+  { key: 'api', icon: BookOpen, path: '/api' },
   { key: 'apps', icon: Sparkles, path: '/apps' },
 ] as const;
 
@@ -47,9 +47,9 @@ const i18nText: Record<
       desc: 'Various deployment methods and installation guides.',
     },
     support: { text: 'Help & Support', desc: 'FAQ and community support.' },
-    business: {
-      text: 'Business',
-      desc: 'Business cooperation and enterprise solutions.',
+    api: {
+      text: 'API Reference',
+      desc: 'Complete API documentation and reference.',
     },
     apps: {
       text: 'AI Applications',
@@ -62,7 +62,7 @@ const i18nText: Record<
     start: { text: '快速开始', desc: '学习如何部署和配置 New API。' },
     install: { text: '部署安装', desc: '多种部署方式和安装指南。' },
     support: { text: '帮助支持', desc: '常见问题和社区支持。' },
-    business: { text: '商务合作', desc: '商务合作与企业解决方案。' },
+    api: { text: 'API 参考', desc: '完整的 API 文档和参考指南。' },
     apps: { text: 'AI 应用', desc: 'AI 应用集成指南。' },
   },
   ja: {
@@ -77,9 +77,9 @@ const i18nText: Record<
       text: 'ヘルプ＆サポート',
       desc: 'よくある質問とコミュニティサポート。',
     },
-    business: {
-      text: 'ビジネス',
-      desc: 'ビジネス協力と企業ソリューション。',
+    api: {
+      text: 'API リファレンス',
+      desc: '完全な API ドキュメントとリファレンス。',
     },
     apps: {
       text: 'AI アプリケーション',
