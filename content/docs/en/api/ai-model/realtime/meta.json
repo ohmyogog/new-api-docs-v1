@@ -1,0 +1,5 @@
+{
+  "title": "Realtime Audio",
+  "icon": "Radio",
+  "pages": ["create-realtime-session"]
+}

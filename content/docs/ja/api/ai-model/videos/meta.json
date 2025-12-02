@@ -1,0 +1,11 @@
+{
+  "title": "動画",
+  "icon": "Video",
+  "pages": [
+    "sora",
+    "kling",
+    "jimeng",
+    "create-video-generation",
+    "get-video-generation"
+  ]
+}

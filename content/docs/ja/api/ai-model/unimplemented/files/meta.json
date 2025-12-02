@@ -1,0 +1,10 @@
+{
+  "title": "ファイル",
+  "pages": [
+    "list-files",
+    "create-file",
+    "retrieve-file",
+    "download-file",
+    "delete-file"
+  ]
+}

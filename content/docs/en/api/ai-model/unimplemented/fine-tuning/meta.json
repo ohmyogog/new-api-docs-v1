@@ -1,0 +1,10 @@
+{
+  "title": "Fine-tuning",
+  "pages": [
+    "create-fine-tune",
+    "list-fine-tunes",
+    "retrieve-fine-tune",
+    "cancel-fine-tune",
+    "list-fine-tune-events"
+  ]
+}

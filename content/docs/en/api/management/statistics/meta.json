@@ -1,0 +1,5 @@
+{
+  "title": "Statistics",
+  "icon": "BarChart3",
+  "pages": ["data-get", "data-self-get"]
+}
