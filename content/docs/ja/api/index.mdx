@@ -37,27 +37,27 @@ import {
 
 ## 概要
 
-New API は、**AIモデルインターフェース**と**管理インターフェース**の2つの主要なカテゴリに分けられた完全なRESTful APIインターフェースを提供します。これらのインターフェースを通じて、AI機能の呼び出しとシステム管理機能を実現できます。
+New API は、**AIモデルインターフェース**と**管理インターフェース**の2つの主要なカテゴリに分けられる、完全なRESTful APIインターフェースを提供します。これらのインターフェースを通じて、AI機能の呼び出しとシステム管理機能を実現できます。
 
 <Callout title="オンラインデバッグ">
-  [Apifox 演習場](https://apifox.newapi.ai/) にアクセスしてAPIインターフェースをオンラインでテストおよびデバッグするか、以下のAPIドキュメントを参照してください。
+  [Apifox プレイグラウンド](https://apifox.newapi.ai/) にアクセスしてAPIインターフェースをオンラインでテストおよびデバッグするか、以下のAPIドキュメントを参照してください。
 </Callout>
 
 ## AIモデルインターフェース
 
-AIモデルインターフェースは、OpenAI API形式と互換性のある様々なAI機能の呼び出しを提供します。
+AIモデルインターフェースは、様々なAI機能の呼び出しを提供し、OpenAI API形式と互換性があります。
 
 <Cards>
   <Card
     icon={<List />}
     title="モデルリスト"
-    description="利用可能なモデルリストを取得します。"
+    description="利用可能なモデルのリストを取得します。"
     href="/ja/docs/api/ai-model/models/list/list-models"
   />
   <Card
     icon={<MessageSquare />}
     title="チャット"
-    description="チャット補完インターフェース。"
+    description="会話補完インターフェース。"
     href="/ja/docs/api/ai-model/chat/openai/create-chat-completion"
   />
   <Card
@@ -74,14 +74,14 @@ AIモデルインターフェースは、OpenAI API形式と互換性のある�
   />
   <Card
     icon={<Search />}
-    title="リランク"
-    description="ドキュメントリランクインターフェース。"
+    title="再ランキング"
+    description="ドキュメント再ランキングインターフェース。"
     href="/ja/docs/api/ai-model/rerank/create-rerank"
   />
   <Card
     icon={<ShieldCheck />}
-    title="審査"
-    description="コンテンツセキュリティ監査インターフェース。"
+    title="モデレーション"
+    description="コンテンツ安全審査インターフェース。"
     href="/ja/docs/api/ai-model/moderations/create-moderation"
   />
   <Card
@@ -104,14 +104,14 @@ AIモデルインターフェースは、OpenAI API形式と互換性のある�
   />
   <Card
     icon={<Video />}
-    title="動画"
-    description="AI動画生成インターフェース。"
+    title="ビデオ"
+    description="AIビデオ生成インターフェース。"
     href="/ja/docs/api/ai-model/videos/sora/create-video"
   />
   <Card
     icon={<FileQuestion />}
     title="未実装"
-    description="プレースホルダーインターフェース、現在未実装。"
+    description="プレースホルダーインターフェース、現在未実装です。"
     href="/ja/docs/api/ai-model/unimplemented/files/list-files"
   />
 </Cards>
@@ -124,7 +124,7 @@ AIモデルインターフェースは、OpenAI API形式と互換性のある�
   <Card
     icon={<Server />}
     title="システム"
-    description="システム情報とステータスインターフェース。"
+    description="システム情報およびステータスインターフェース。"
     href="/ja/docs/api/management/system/status-get"
   />
   <Card
@@ -184,13 +184,13 @@ AIモデルインターフェースは、OpenAI API形式と互換性のある�
   <Card
     icon={<CreditCard />}
     title="支払い"
-    description="支払いとチャージインターフェース。"
+    description="支払いおよびチャージインターフェース。"
     href="/ja/docs/api/management/payment/user-topup-info-get"
   />
   <Card
     icon={<ScrollText />}
     title="ログ"
-    description="使用ログ照会インターフェース。"
+    description="使用ログクエリインターフェース。"
     href="/ja/docs/api/management/logs/log-get"
   />
   <Card
@@ -213,8 +213,8 @@ AIモデルインターフェースは、OpenAI API形式と互換性のある�
   />
   <Card
     icon={<Store />}
-    title="ベンダー"
-    description="ベンダー管理インターフェース。"
+    title="プロバイダー"
+    description="プロバイダー管理インターフェース。"
     href="/ja/docs/api/management/vendors/vendors-get"
   />
   <Card
