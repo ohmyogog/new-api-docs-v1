@@ -1,0 +1,14 @@
+{
+  "title": "令牌管理",
+  "icon": "Key",
+  "pages": [
+    "token-get",
+    "token-post",
+    "token-put",
+    "token-id-get",
+    "token-id-delete",
+    "token-search-get",
+    "token-batch-post",
+    "usage-token-get"
+  ]
+}

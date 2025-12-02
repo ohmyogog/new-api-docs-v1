@@ -1,0 +1,12 @@
+{
+  "title": "系统设置",
+  "icon": "Sliders",
+  "pages": [
+    "option-get",
+    "option-put",
+    "option-migrate_console_setting-post",
+    "option-rest_model_ratio-post",
+    "ratio_sync-channels-get",
+    "ratio_sync-fetch-post"
+  ]
+}

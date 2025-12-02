@@ -1,0 +1,13 @@
+{
+  "title": "兑换码",
+  "icon": "Ticket",
+  "pages": [
+    "redemption-get",
+    "redemption-post",
+    "redemption-put",
+    "redemption-id-get",
+    "redemption-id-delete",
+    "redemption-search-get",
+    "redemption-invalid-delete"
+  ]
+}
