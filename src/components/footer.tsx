@@ -1,379 +1,240 @@
 import Link from 'next/link';
-import { Github, Container, MessageCircle } from 'lucide-react';
+import { Github, MessageCircle } from 'lucide-react';
 import { getLocalePath } from '@/lib/i18n';
 
 interface FooterProps {
   lang: string;
 }
 
-const footerContent: Record<
-  string,
+// ============================================
+// Shared Icons (Official SVG paths from Simple Icons)
+// ============================================
+const GiteeIcon = (
+  <svg role="img" viewBox="0 0 24 24" fill="currentColor" className="size-4">
+    <path d="M11.984 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.016 0zm6.09 5.333c.328 0 .593.266.592.593v1.482a.594.594 0 0 1-.593.592H9.777c-.982 0-1.778.796-1.778 1.778v5.63c0 .327.266.592.593.592h5.63c.982 0 1.778-.796 1.778-1.778v-.296a.593.593 0 0 0-.592-.593h-4.037a.594.594 0 0 1-.592-.593v-1.482a.593.593 0 0 1 .592-.592h6.815c.327 0 .593.265.593.592v3.408a4 4 0 0 1-4 4H5.926a.593.593 0 0 1-.593-.593V9.778a4.444 4.444 0 0 1 4.445-4.444h8.296Z" />
+  </svg>
+);
+
+const DockerIcon = (
+  <svg role="img" viewBox="0 0 24 24" fill="currentColor" className="size-4">
+    <path d="M13.983 11.078h2.119a.186.186 0 0 0 .186-.185V9.006a.186.186 0 0 0-.186-.186h-2.119a.185.185 0 0 0-.185.185v1.888c0 .102.083.185.185.185zm-2.954-5.43h2.118a.186.186 0 0 0 .186-.186V3.574a.186.186 0 0 0-.186-.185h-2.118a.185.185 0 0 0-.185.185v1.888c0 .102.082.185.185.186zm0 2.716h2.118a.187.187 0 0 0 .186-.186V6.29a.186.186 0 0 0-.186-.185h-2.118a.185.185 0 0 0-.185.185v1.887c0 .102.082.185.185.186zm-2.93 0h2.12a.186.186 0 0 0 .184-.186V6.29a.185.185 0 0 0-.185-.185H8.1a.185.185 0 0 0-.185.185v1.887c0 .102.083.185.185.186zm-2.964 0h2.119a.186.186 0 0 0 .185-.186V6.29a.185.185 0 0 0-.185-.185H5.136a.186.186 0 0 0-.186.185v1.887c0 .102.084.185.186.186zm5.893 2.715h2.118a.186.186 0 0 0 .186-.185V9.006a.186.186 0 0 0-.186-.186h-2.118a.185.185 0 0 0-.185.185v1.888c0 .102.082.185.185.185zm-2.93 0h2.12a.185.185 0 0 0 .184-.185V9.006a.185.185 0 0 0-.184-.186h-2.12a.185.185 0 0 0-.184.185v1.888c0 .102.083.185.185.185zm-2.964 0h2.119a.185.185 0 0 0 .185-.185V9.006a.185.185 0 0 0-.185-.186h-2.119a.185.185 0 0 0-.185.185v1.888c0 .102.083.185.185.185zm-2.92 0h2.12a.185.185 0 0 0 .184-.185V9.006a.185.185 0 0 0-.184-.186h-2.12a.186.186 0 0 0-.185.185v1.888c0 .102.084.185.185.185zM23.763 9.89c-.065-.051-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 0 0-.75.748 11.376 11.376 0 0 0 .692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137.983.003 1.963-.086 2.93-.266a12.248 12.248 0 0 0 3.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288z" />
+  </svg>
+);
+
+const ProductHuntIcon = (
+  <svg role="img" viewBox="0 0 24 24" fill="currentColor" className="size-4">
+    <path d="M13.604 8.4h-3.405V12h3.405a1.8 1.8 0 0 0 1.8-1.8 1.8 1.8 0 0 0-1.8-1.8zM12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm1.604 14.4h-3.405V18H7.801V6h5.804a4.2 4.2 0 0 1 4.199 4.2 4.2 4.2 0 0 1-4.2 4.2z" />
+  </svg>
+);
+
+// ============================================
+// Shared Data (same across all languages)
+// ============================================
+const socialLinks: { name: string; href: string; icon: React.ReactNode }[] = [
   {
-    sections: {
+    name: 'GitHub',
+    href: 'https://github.com/QuantumNous/new-api',
+    icon: <Github className="size-4" />,
+  },
+  {
+    name: 'Gitee',
+    href: 'https://gitee.com/QuantumNous/new-api',
+    icon: GiteeIcon,
+  },
+  {
+    name: 'Docker',
+    href: 'https://hub.docker.com/r/calciumion/new-api',
+    icon: DockerIcon,
+  },
+  {
+    name: 'QQ',
+    href: 'docs/support/community-interaction',
+    icon: <MessageCircle className="size-4" />,
+  },
+  {
+    name: 'Product Hunt',
+    href: 'https://www.producthunt.com/products/new-api',
+    icon: ProductHuntIcon,
+  },
+];
+
+const beianLinks: { text: string; href: string }[] = [
+  { text: '浙ICP备2025190188号-2', href: 'https://beian.miit.gov.cn/' },
+  {
+    text: '浙公网安备33010602014019号',
+    href: 'http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602014019',
+  },
+];
+
+// External links (same labels across all languages)
+const relatedProjects: { label: string; href: string }[] = [
+  { label: 'One API', href: 'https://github.com/songquanpeng/one-api' },
+  {
+    label: 'Midjourney-Proxy',
+    href: 'https://github.com/novicezk/midjourney-proxy',
+  },
+  {
+    label: 'neko-api-key-tool',
+    href: 'https://github.com/Calcium-Ion/neko-api-key-tool',
+  },
+];
+
+const friendshipLinks: { label: string; href: string }[] = [
+  { label: 'CoAI', href: 'https://github.com/coaidev/coai' },
+  {
+    label: 'new-api-horizon',
+    href: 'https://github.com/Calcium-Ion/new-api-horizon',
+  },
+  { label: 'GPT-Load', href: 'https://www.gpt-load.com' },
+  { label: 'LangBot', href: 'https://langbot.app' },
+];
+
+// ============================================
+// Internal link paths (only labels need translation)
+// ============================================
+const internalPaths = {
+  aboutProject: 'docs/guide/wiki/basic-concepts/project-introduction',
+  contactUs: 'docs/support/community-interaction',
+  features: 'docs/guide/wiki/basic-concepts/features-introduction',
+  installation: 'docs/installation',
+  userGuide: 'docs/guide/home',
+  apiDocs: 'docs/api',
+} as const;
+
+// ============================================
+// Translations (only text that differs by language)
+// ============================================
+interface FooterTranslation {
+  sections: {
+    about: {
       title: string;
-      links: { label: string; href: string; external?: boolean }[];
-    }[];
-    social: { name: string; href: string; icon: React.ReactNode }[];
-    copyright: string;
-    beian: { text: string; href?: string }[];
-  }
-> = {
+      aboutProject: string;
+      contactUs: string;
+      features: string;
+    };
+    docs: {
+      title: string;
+      installation: string;
+      userGuide: string;
+      apiDocs: string;
+    };
+    relatedProjects: string;
+    friendshipLinks: string;
+  };
+  copyright: string;
+}
+
+const translations: Record<string, FooterTranslation> = {
   zh: {
-    sections: [
-      {
+    sections: {
+      about: {
         title: '关于我们',
-        links: [
-          {
-            label: '关于项目',
-            href: 'docs/guide/wiki/basic-concepts/project-introduction',
-          },
-          { label: '联系我们', href: 'docs/support/community-interaction' },
-          {
-            label: '功能特性',
-            href: 'docs/guide/wiki/basic-concepts/features-introduction',
-          },
-        ],
+        aboutProject: '关于项目',
+        contactUs: '联系我们',
+        features: '功能特性',
       },
-      {
+      docs: {
         title: '文档',
-        links: [
-          { label: '安装部署', href: 'docs/installation' },
-          { label: '使用指南', href: 'docs/guide/home' },
-          {
-            label: 'API 文档',
-            href: 'docs/api',
-          },
-        ],
+        installation: '安装部署',
+        userGuide: '使用指南',
+        apiDocs: 'API 文档',
       },
-      {
-        title: '相关项目',
-        links: [
-          {
-            label: 'One API',
-            href: 'https://github.com/songquanpeng/one-api',
-            external: true,
-          },
-          {
-            label: 'Midjourney-Proxy',
-            href: 'https://github.com/novicezk/midjourney-proxy',
-            external: true,
-          },
-          {
-            label: 'neko-api-key-tool',
-            href: 'https://github.com/Calcium-Ion/neko-api-key-tool',
-            external: true,
-          },
-        ],
-      },
-      {
-        title: '友情链接',
-        links: [
-          {
-            label: 'CoAI',
-            href: 'https://github.com/coaidev/coai',
-            external: true,
-          },
-          {
-            label: 'new-api-horizon',
-            href: 'https://github.com/Calcium-Ion/new-api-horizon',
-            external: true,
-          },
-          {
-            label: 'GPT-Load',
-            href: 'https://www.gpt-load.com',
-            external: true,
-          },
-          {
-            label: 'LangBot',
-            href: 'https://langbot.app',
-            external: true,
-          },
-        ],
-      },
-    ],
-    social: [
-      {
-        name: 'GitHub',
-        href: 'https://github.com/QuantumNous/new-api',
-        icon: <Github className="size-4" />,
-      },
-      {
-        name: 'Gitee',
-        href: 'https://gitee.com/QuantumNous/new-api',
-        icon: (
-          <svg
-            role="img"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="size-4"
-          >
-            <path d="M11.984 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.016 0zm6.09 5.333c.328 0 .593.266.592.593v1.482a.594.594 0 0 1-.593.592H9.777c-.982 0-1.778.796-1.778 1.778v5.63c0 .327.266.592.593.592h5.63c.982 0 1.778-.796 1.778-1.778v-.296a.593.593 0 0 0-.592-.593h-4.037a.594.594 0 0 1-.592-.593v-1.482a.593.593 0 0 1 .592-.592h6.815c.327 0 .593.265.593.592v3.408a4 4 0 0 1-4 4H5.926a.593.593 0 0 1-.593-.593V9.778a4.444 4.444 0 0 1 4.445-4.444h8.296Z" />
-          </svg>
-        ),
-      },
-      {
-        name: 'Docker',
-        href: 'https://hub.docker.com/r/calciumion/new-api',
-        icon: <Container className="size-4" />,
-      },
-      {
-        name: 'QQ',
-        href: 'docs/support/community-interaction',
-        icon: <MessageCircle className="size-4" />,
-      },
-    ],
+      relatedProjects: '相关项目',
+      friendshipLinks: '友情链接',
+    },
     copyright: '© 2025 锟腾科技. All Rights Reserved.',
-    beian: [
-      { text: '浙ICP备2025190188号-2', href: 'https://beian.miit.gov.cn/' },
-      {
-        text: '浙公网安备33010602014019号',
-        href: 'http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602014019',
-      },
-    ],
   },
   en: {
-    sections: [
-      {
+    sections: {
+      about: {
         title: 'About Us',
-        links: [
-          {
-            label: 'About Project',
-            href: 'docs/guide/wiki/basic-concepts/project-introduction',
-          },
-          {
-            label: 'Contact Us',
-            href: 'docs/support/community-interaction',
-          },
-          {
-            label: 'Features',
-            href: 'docs/guide/wiki/basic-concepts/features-introduction',
-          },
-        ],
+        aboutProject: 'About Project',
+        contactUs: 'Contact Us',
+        features: 'Features',
       },
-      {
+      docs: {
         title: 'Docs',
-        links: [
-          { label: 'Installation', href: 'docs/installation' },
-          { label: 'User Guide', href: 'docs/guide/home' },
-          {
-            label: 'API Docs',
-            href: 'docs/api',
-          },
-        ],
+        installation: 'Installation',
+        userGuide: 'User Guide',
+        apiDocs: 'API Docs',
       },
-      {
-        title: 'Related Projects',
-        links: [
-          {
-            label: 'One API',
-            href: 'https://github.com/songquanpeng/one-api',
-            external: true,
-          },
-          {
-            label: 'Midjourney-Proxy',
-            href: 'https://github.com/novicezk/midjourney-proxy',
-            external: true,
-          },
-          {
-            label: 'neko-api-key-tool',
-            href: 'https://github.com/Calcium-Ion/neko-api-key-tool',
-            external: true,
-          },
-        ],
-      },
-      {
-        title: 'Friendship Links',
-        links: [
-          {
-            label: 'CoAI',
-            href: 'https://github.com/coaidev/coai',
-            external: true,
-          },
-          {
-            label: 'new-api-horizon',
-            href: 'https://github.com/Calcium-Ion/new-api-horizon',
-            external: true,
-          },
-          {
-            label: 'GPT-Load',
-            href: 'https://www.gpt-load.com',
-            external: true,
-          },
-          {
-            label: 'LangBot',
-            href: 'https://langbot.app',
-            external: true,
-          },
-        ],
-      },
-    ],
-    social: [
-      {
-        name: 'GitHub',
-        href: 'https://github.com/QuantumNous/new-api',
-        icon: <Github className="size-4" />,
-      },
-      {
-        name: 'Gitee',
-        href: 'https://gitee.com/QuantumNous/new-api',
-        icon: (
-          <svg
-            role="img"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="size-4"
-          >
-            <path d="M11.984 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.016 0zm6.09 5.333c.328 0 .593.266.592.593v1.482a.594.594 0 0 1-.593.592H9.777c-.982 0-1.778.796-1.778 1.778v5.63c0 .327.266.592.593.592h5.63c.982 0 1.778-.796 1.778-1.778v-.296a.593.593 0 0 0-.592-.593h-4.037a.594.594 0 0 1-.592-.593v-1.482a.593.593 0 0 1 .592-.592h6.815c.327 0 .593.265.593.592v3.408a4 4 0 0 1-4 4H5.926a.593.593 0 0 1-.593-.593V9.778a4.444 4.444 0 0 1 4.445-4.444h8.296Z" />
-          </svg>
-        ),
-      },
-      {
-        name: 'Docker',
-        href: 'https://hub.docker.com/r/calciumion/new-api',
-        icon: <Container className="size-4" />,
-      },
-      {
-        name: 'QQ',
-        href: 'docs/support/community-interaction',
-        icon: <MessageCircle className="size-4" />,
-      },
-    ],
+      relatedProjects: 'Related Projects',
+      friendshipLinks: 'Friendship Links',
+    },
     copyright: '© 2025 QuantumNous. All Rights Reserved.',
-    beian: [
-      { text: '浙ICP备2025190188号-2', href: 'https://beian.miit.gov.cn/' },
-      {
-        text: '浙公网安备33010602014019号',
-        href: 'http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602014019',
-      },
-    ],
   },
   ja: {
-    sections: [
-      {
+    sections: {
+      about: {
         title: '私たちについて',
-        links: [
-          {
-            label: 'プロジェクトについて',
-            href: 'docs/guide/wiki/basic-concepts/project-introduction',
-          },
-          {
-            label: 'お問い合わせ',
-            href: 'docs/support/community-interaction',
-          },
-          {
-            label: '機能',
-            href: 'docs/guide/wiki/basic-concepts/features-introduction',
-          },
-        ],
+        aboutProject: 'プロジェクトについて',
+        contactUs: 'お問い合わせ',
+        features: '機能',
       },
-      {
+      docs: {
         title: 'ドキュメント',
-        links: [
-          { label: 'インストール', href: 'docs/installation' },
-          { label: 'ユーザーガイド', href: 'docs/guide/home' },
-          {
-            label: 'APIドキュメント',
-            href: 'docs/api',
-          },
-        ],
+        installation: 'インストール',
+        userGuide: 'ユーザーガイド',
+        apiDocs: 'APIドキュメント',
       },
-      {
-        title: '関連プロジェクト',
-        links: [
-          {
-            label: 'One API',
-            href: 'https://github.com/songquanpeng/one-api',
-            external: true,
-          },
-          {
-            label: 'Midjourney-Proxy',
-            href: 'https://github.com/novicezk/midjourney-proxy',
-            external: true,
-          },
-          {
-            label: 'neko-api-key-tool',
-            href: 'https://github.com/Calcium-Ion/neko-api-key-tool',
-            external: true,
-          },
-        ],
-      },
-      {
-        title: '友好リンク',
-        links: [
-          {
-            label: 'CoAI',
-            href: 'https://github.com/coaidev/coai',
-            external: true,
-          },
-          {
-            label: 'new-api-horizon',
-            href: 'https://github.com/Calcium-Ion/new-api-horizon',
-            external: true,
-          },
-          {
-            label: 'GPT-Load',
-            href: 'https://www.gpt-load.com',
-            external: true,
-          },
-          {
-            label: 'LangBot',
-            href: 'https://langbot.app',
-            external: true,
-          },
-        ],
-      },
-    ],
-    social: [
-      {
-        name: 'GitHub',
-        href: 'https://github.com/QuantumNous/new-api',
-        icon: <Github className="size-4" />,
-      },
-      {
-        name: 'Gitee',
-        href: 'https://gitee.com/QuantumNous/new-api',
-        icon: (
-          <svg
-            role="img"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="size-4"
-          >
-            <path d="M11.984 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.016 0zm6.09 5.333c.328 0 .593.266.592.593v1.482a.594.594 0 0 1-.593.592H9.777c-.982 0-1.778.796-1.778 1.778v5.63c0 .327.266.592.593.592h5.63c.982 0 1.778-.796 1.778-1.778v-.296a.593.593 0 0 0-.592-.593h-4.037a.594.594 0 0 1-.592-.593v-1.482a.593.593 0 0 1 .592-.592h6.815c.327 0 .593.265.593.592v3.408a4 4 0 0 1-4 4H5.926a.593.593 0 0 1-.593-.593V9.778a4.444 4.444 0 0 1 4.445-4.444h8.296Z" />
-          </svg>
-        ),
-      },
-      {
-        name: 'Docker',
-        href: 'https://hub.docker.com/r/calciumion/new-api',
-        icon: <Container className="size-4" />,
-      },
-      {
-        name: 'QQ',
-        href: 'docs/support/community-interaction',
-        icon: <MessageCircle className="size-4" />,
-      },
-    ],
+      relatedProjects: '関連プロジェクト',
+      friendshipLinks: '友好リンク',
+    },
     copyright: '© 2025 QuantumNous. All Rights Reserved.',
-    beian: [
-      { text: '浙ICP备2025190188号-2', href: 'https://beian.miit.gov.cn/' },
-      {
-        text: '浙公網安備33010602014019号',
-        href: 'http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602014019',
-      },
-    ],
   },
 };
 
+// ============================================
+// Build sections from translations
+// ============================================
+function buildSections(t: FooterTranslation) {
+  return [
+    {
+      title: t.sections.about.title,
+      links: [
+        {
+          label: t.sections.about.aboutProject,
+          href: internalPaths.aboutProject,
+        },
+        { label: t.sections.about.contactUs, href: internalPaths.contactUs },
+        { label: t.sections.about.features, href: internalPaths.features },
+      ],
+    },
+    {
+      title: t.sections.docs.title,
+      links: [
+        {
+          label: t.sections.docs.installation,
+          href: internalPaths.installation,
+        },
+        { label: t.sections.docs.userGuide, href: internalPaths.userGuide },
+        { label: t.sections.docs.apiDocs, href: internalPaths.apiDocs },
+      ],
+    },
+    {
+      title: t.sections.relatedProjects,
+      links: relatedProjects.map((p) => ({ ...p, external: true })),
+    },
+    {
+      title: t.sections.friendshipLinks,
+      links: friendshipLinks.map((p) => ({ ...p, external: true })),
+    },
+  ];
+}
+
+// ============================================
+// Footer Component
+// ============================================
 export function Footer({ lang }: FooterProps) {
-  const content = footerContent[lang] || footerContent.en;
+  const t = translations[lang] || translations.en;
+  const sections = buildSections(t);
 
   return (
     <footer className="border-fd-border bg-fd-card/30 mt-auto border-t backdrop-blur-sm">
       <div className="mx-auto max-w-[1400px] px-6 py-12">
         {/* Top: Links Grid */}
         <div className="grid grid-cols-2 gap-x-8 gap-y-10 pb-10 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-12">
-          {content.sections.map((section) => (
+          {sections.map((section) => (
             <div key={section.title}>
               <h3 className="text-fd-foreground mb-4 text-sm font-semibold">
                 {section.title}
@@ -381,7 +242,7 @@ export function Footer({ lang }: FooterProps) {
               <ul className="space-y-3">
                 {section.links.map((link) => (
                   <li key={link.href}>
-                    {link.external ? (
+                    {'external' in link && link.external ? (
                       <a
                         href={link.href}
                         target="_blank"
@@ -409,30 +270,25 @@ export function Footer({ lang }: FooterProps) {
         <div className="border-fd-border flex flex-col items-start justify-between gap-4 border-t pt-8 sm:flex-row sm:items-center">
           {/* Left: Copyright and Beian */}
           <div className="text-fd-muted-foreground flex flex-col gap-2 text-xs">
-            <p>{content.copyright}</p>
+            <p>{t.copyright}</p>
             <div className="flex flex-col gap-1 sm:flex-row sm:gap-3">
-              {content.beian.map((item, index) => (
-                <span key={index}>
-                  {item.href ? (
-                    <a
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-fd-foreground transition-colors"
-                    >
-                      {item.text}
-                    </a>
-                  ) : (
-                    <span>{item.text}</span>
-                  )}
-                </span>
+              {beianLinks.map((item, index) => (
+                <a
+                  key={index}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-fd-foreground transition-colors"
+                >
+                  {item.text}
+                </a>
               ))}
             </div>
           </div>
 
           {/* Right: Social Icons */}
           <div className="flex items-center gap-4">
-            {content.social.map((social) => {
+            {socialLinks.map((social) => {
               const isExternal = social.href.startsWith('http');
               const Component = isExternal ? 'a' : Link;
               return (
