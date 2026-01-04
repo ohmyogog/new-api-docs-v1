@@ -326,6 +326,12 @@ async function generate() {
   for (const [dir, title] of managementMeta.entries()) {
     await writeMetaJson(`./content/docs/zh/api/management/${dir}`, { title });
   }
+
+  // Add management auth guide page (Apifox has a dedicated doc page in backend management)
+  await ensureFileFromTemplate(
+    './content/docs/zh/api/management/auth.mdx',
+    './scripts/templates/zh-management-auth.mdx'
+  );
 }
 
 generate()

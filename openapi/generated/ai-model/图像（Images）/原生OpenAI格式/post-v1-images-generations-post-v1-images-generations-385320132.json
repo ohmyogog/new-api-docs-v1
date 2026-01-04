@@ -10,6 +10,14 @@
       "name": "图像（Images）/原生OpenAI格式"
     }
   ],
+  "components": {
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
   "paths": {
     "/v1/images/generations/": {
       "post": {
@@ -84,6 +92,11 @@
             }
           }
         },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Response",

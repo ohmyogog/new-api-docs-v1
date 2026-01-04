@@ -10,6 +10,15 @@
       "name": "实时语音（Realtime）"
     }
   ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "使用 Bearer Token 认证。\n格式: `Authorization: Bearer sk-xxxxxx`\n"
+      }
+    }
+  },
   "paths": {
     "/v1/realtime": {
       "get": {
@@ -31,6 +40,11 @@
                 "gpt-4o-realtime-preview"
               ]
             }
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
           }
         ],
         "responses": {

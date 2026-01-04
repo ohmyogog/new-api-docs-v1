@@ -10,6 +10,15 @@
       "name": "模型（Models）/列出模型"
     }
   ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "使用 Bearer Token 认证。\n格式: `Authorization: Bearer sk-xxxxxx`\n"
+      }
+    }
+  },
   "paths": {
     "/v1beta/models": {
       "get": {
@@ -20,6 +29,11 @@
         "description": "以 Gemini API 格式返回可用模型列表",
         "operationId": "listmodelsgemini",
         "parameters": [],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "成功获取模型列表",

@@ -48,6 +48,12 @@ type HttpEndpoint = {
   auth?: {
     type?: string;
   };
+  securityScheme?: {
+    schemeGroups?: Array<{
+      schemeIds?: number[];
+    }>;
+    required?: boolean;
+  };
 };
 
 type HttpParameter = {
@@ -125,6 +131,67 @@ function extractDefinitionsFromApifoxProject(
   }
 
   return map;
+}
+
+type OpenApiSecuritySchemeObject = Record<string, unknown>;
+
+function extractSecuritySchemesFromApifoxProject(
+  project: unknown
+): Map<number, { name: string; scheme: OpenApiSecuritySchemeObject }> {
+  const out = new Map<
+    number,
+    { name: string; scheme: OpenApiSecuritySchemeObject }
+  >();
+  const root = project as any;
+  const collection = root?.securitySchemeCollection;
+  if (!Array.isArray(collection)) return out;
+
+  for (const group of collection) {
+    const items = group?.items;
+    if (!Array.isArray(items)) continue;
+    for (const item of items) {
+      const id = typeof item?.id === 'number' ? item.id : undefined;
+      const name = typeof item?.name === 'string' ? item.name : undefined;
+      const cfg = item?.authConfigs;
+      if (!id || !name || !cfg || typeof cfg !== 'object') continue;
+
+      // Apifox stores OAS-like shape in authConfigs
+      // We map to OpenAPI 3.x Security Scheme Object.
+      const type = cfg.type;
+      let scheme: OpenApiSecuritySchemeObject | undefined;
+
+      if (type === 'http') {
+        scheme = {
+          type: 'http',
+          scheme: cfg.scheme,
+          description: cfg.description || undefined,
+        };
+      } else if (type === 'apiKey') {
+        scheme = {
+          type: 'apiKey',
+          in: cfg.in,
+          name: cfg.name,
+          description: cfg.description || undefined,
+        };
+      } else if (type === 'oauth2') {
+        scheme = {
+          type: 'oauth2',
+          flows: cfg.flows,
+          description: cfg.description || undefined,
+        };
+      } else {
+        // Unknown type; keep minimal so UI can still render
+        scheme = {
+          type: String(type || 'http'),
+          description: cfg.description || undefined,
+        };
+      }
+
+      out.set(id, { name, scheme });
+    }
+  }
+
+  return out;
 }
 
 function deepClone<T>(x: T): T {
@@ -314,16 +381,99 @@ async function tryReadApifoxProjectDefs(): Promise<Map<string, any>> {
     const raw = await readFile(p, 'utf8');
     const project = JSON.parse(raw) as unknown;
     const defs = extractDefinitionsFromApifoxProject(project);
+    const schemes = extractSecuritySchemesFromApifoxProject(project);
     if (defs.size > 0) {
       console.log(`✅ Loaded ${defs.size} schema definitions from ${p}`);
     } else {
       console.log(`⚠ No schema definitions found in ${p}`);
+    }
+    if (schemes.size > 0) {
+      console.log(`✅ Loaded ${schemes.size} security scheme(s) from ${p}`);
+    } else {
+      console.log(`⚠ No security schemes found in ${p}`);
     }
     return defs;
   } catch {
     console.log(`⚠ Apifox project file not found or unreadable: ${p}`);
     return new Map();
   }
+}
+
+async function tryReadApifoxProjectSecuritySchemes(): Promise<
+  Map<number, { name: string; scheme: OpenApiSecuritySchemeObject }>
+> {
+  const p =
+    process.env.APIFOX_PROJECT_FILE?.trim() || './openapi/NewAPI.apifox.json';
+  try {
+    const raw = await readFile(p, 'utf8');
+    const project = JSON.parse(raw) as unknown;
+    return extractSecuritySchemesFromApifoxProject(project);
+  } catch {
+    return new Map();
+  }
+}
+
+function buildSecurity(
+  ep: HttpEndpoint,
+  schemes: Map<number, { name: string; scheme: OpenApiSecuritySchemeObject }>
+): {
+  security?: Array<Record<string, string[]>>;
+  securitySchemes?: Record<string, any>;
+} {
+  const usedSchemeIds =
+    ep.securityScheme?.schemeGroups?.flatMap((g) => g.schemeIds ?? []) ?? [];
+
+  const uniqueIds = Array.from(new Set(usedSchemeIds)).filter(
+    (x) => typeof x === 'number'
+  );
+
+  const authType = (ep.auth?.type || '').toLowerCase();
+  const needsAuthExplicit =
+    authType === 'securityscheme' || ep.securityScheme?.required === true;
+
+  // Some items in `http-apis` rely on inherited auth settings and may return `{}`.
+  // Infer auth requirement from module + description conventions.
+  const desc = (ep.description || '').trim();
+  const isExplicitNoAuth = desc.includes('🔓') || desc.includes('无需鉴权');
+  const isManagement = ep.moduleId === 6660656;
+  const isAiModel = ep.moduleId === 6656265;
+
+  const needsAuthInferred =
+    !needsAuthExplicit &&
+    !isExplicitNoAuth &&
+    (isAiModel ||
+      // management endpoints are mostly protected unless explicitly marked public
+      isManagement);
+
+  const needsAuth = needsAuthExplicit || needsAuthInferred;
+
+  const idsToUse =
+    uniqueIds.length > 0
+      ? uniqueIds
+      : needsAuth
+        ? // prefer the canonical BearerAuth (571886) when available
+          schemes.has(571886)
+          ? [571886]
+          : schemes.has(583570)
+            ? [583570]
+            : Array.from(schemes.keys())
+        : [];
+
+  if (!needsAuth || idsToUse.length === 0) return {};
+
+  const securitySchemes: Record<string, any> = {};
+  const securityObj: Record<string, string[]> = {};
+
+  for (const id of idsToUse) {
+    const entry = schemes.get(id);
+    if (!entry) continue;
+    securitySchemes[entry.name] = entry.scheme;
+    securityObj[entry.name] = [];
+  }
+
+  if (Object.keys(securityObj).length === 0) return {};
+
+  return { security: [securityObj], securitySchemes };
 }
 
 async function main() {
@@ -334,6 +484,7 @@ async function main() {
   await mkdir(outRoot, { recursive: true });
 
   const defs = await tryReadApifoxProjectDefs();
+  const securitySchemes = await tryReadApifoxProjectSecuritySchemes();
   const root = await readHttpSource();
   if (!root?.success || !Array.isArray(root.data)) {
     throw new Error(
@@ -368,6 +519,8 @@ async function main() {
     await mkdir(outDir, { recursive: true });
     const outFile = path.join(outDir, fileName);
 
+    const sec = buildSecurity(ep, securitySchemes);
+
     const doc = {
       openapi: '3.1.0',
       info: {
@@ -376,6 +529,9 @@ async function main() {
         description: ep.description || undefined,
       },
       tags: tags.map((name) => ({ name })),
+      ...(sec.securitySchemes
+        ? { components: { securitySchemes: sec.securitySchemes } }
+        : {}),
       paths: {
         [ep.path]: {
           [method]: {
@@ -400,6 +556,7 @@ async function main() {
             ...(buildRequestBody(ep, defs)
               ? { requestBody: buildRequestBody(ep, defs) }
               : {}),
+            ...(sec.security ? { security: sec.security } : {}),
             responses: buildResponses(ep, defs),
           },
         },
