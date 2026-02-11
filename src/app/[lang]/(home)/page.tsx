@@ -80,6 +80,11 @@ export default async function Page({
       logo: '/assets/partner/cherry-studio.png',
     },
     {
+      name: 'AionUi',
+      url: 'https://github.com/iOfficeAI/AionUi',
+      logo: '/assets/partner/aionui.png',
+    },
+    {
       name: 'Peking University',
       url: 'https://bda.pku.edu.cn/',
       logo: '/assets/partner/pku.png',
