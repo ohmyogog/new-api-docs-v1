@@ -7,12 +7,12 @@
     "index",
     "aionui",
     "cherry-studio",
-    "claude-code",
-    "codex-cli",
-    "factory-droid-cli",
     "fluent-read",
     "langbot",
+    "astrbot",
     "luna-translator",
-    "astrbot"
+    "claude-code",
+    "codex-cli",
+    "factory-droid-cli"
   ]
 }
