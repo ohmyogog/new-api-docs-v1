@@ -1,0 +1,216 @@
+---
+title: OpenClaw - 自托管 AI 智能助手平台
+---
+
+<Callout type="info" title="项目介绍">
+  OpenClaw 是一个开源、自托管的个人 AI
+  助手平台，将消息应用连接到运行在你自己硬件上的 AI
+  代理。专为开发者和高级用户设计，无需交出数据控制权即可拥有自主 AI 助手。
+
+  - 官方主页：[https://openclaw.ai](https://openclaw.ai)
+  - 项目文档：[https://docs.openclaw.ai](https://docs.openclaw.ai)
+  - GitHub：[https://github.com/moltbot/moltbot](https://github.com/moltbot/moltbot)
+</Callout>
+
+## 🌟 核心特性
+
+### 多渠道集成
+
+- **全平台覆盖**：支持飞书、Discord、Slack、Microsoft Teams 等多种主流即时通讯平台
+- **单一网关**：通过一个 Gateway 进程统一管理所有渠道
+- **语音支持**：支持 macOS/iOS/Android 语音交互
+- **Canvas 界面**：可渲染交互式 Canvas 界面
+
+### 自托管与数据安全
+
+- **完全自托管**：运行在你自己的机器或服务器上
+- **开源透明**：MIT 开源协议，代码完全透明
+- **数据本地化**：上下文和技能存储在你的本地计算机，而非云端
+
+### 智能代理能力
+
+- **持续运行**：支持后台常驻运行，拥有持久记忆
+- **计划任务**：支持 cron 定时任务
+- **会话隔离**：按代理/工作区/发送者隔离会话
+- **多代理路由**：支持多代理协同工作
+- **工具调用**：原生支持工具调用和代码执行
+
+## 📦 安装方式
+
+<Callout type="info" title="环境要求">
+  - Node.js 22 或更高版本
+  - 一个 AI 模型 API 密钥
+</Callout>
+
+```bash
+npm install -g openclaw@latest
+```
+
+安装完成后运行引导向导：
+
+```bash
+openclaw onboard
+```
+
+## 🚀 配置方法
+
+### 配置文件位置
+
+OpenClaw 的配置文件位于 `~/.openclaw/config.json`，可通过引导向导自动生成，也可以手动编辑。
+
+### 配置示例
+
+以下是使用 New API 作为模型提供商的完整配置示例：
+
+```json
+{
+  "meta": {
+    "lastTouchedVersion": "2026.2.1",
+    "lastTouchedAt": "2026-02-03T12:17:41.559Z"
+  },
+  "wizard": {
+    "lastRunAt": "2026-02-02T21:17:16.011Z",
+    "lastRunVersion": "2026.2.1",
+    "lastRunCommand": "onboard",
+    "lastRunMode": "local"
+  },
+  "auth": {
+    "cooldowns": {
+      "billingBackoffHoursByProvider": {}
+    }
+  },
+  "models": {
+    "providers": {
+      "newapi": {
+        "baseUrl": "https://your-newapi-domain.com/v1",
+        "apiKey": "sk-your-api-key",
+        "auth": "api-key",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "gemini-3-flash-preview",
+            "name": "gemini-3-flash-preview",
+            "api": "openai-completions",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 64000
+          },
+          {
+            "id": "kimi-k2.5",
+            "name": "kimi-k2.5",
+            "api": "openai-completions",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 64000
+          }
+        ]
+      }
+    },
+    "bedrockDiscovery": {
+      "providerFilter": []
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "newapi/gemini-3-flash-preview",
+        "fallbacks": [
+          "newapi/kimi-k2.5"
+        ]
+      },
+      "models": {
+        "newapi/gemini-3-flash-preview": {
+          "alias": "gemini-3-flash-preview"
+        },
+        "newapi/kimi-k2.5": {
+          "alias": "kimi-k2.5"
+        }
+      },
+      "workspace": "/home/your-username/.openclaw/workspace",
+      "maxConcurrent": 4,
+      "subagents": {
+        "maxConcurrent": 8
+      }
+    }
+  },
+  "messages": {
+    "ackReactionScope": "group-mentions"
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto"
+  },
+  "channels": {
+    "lark": {
+      "enabled": true,
+      "dmPolicy": "pairing",
+      "appId": "your-lark-app-id",
+      "appSecret": "your-lark-app-secret",
+      "groupPolicy": "allowlist",
+      "streamMode": "partial"
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "loopback",
+    "auth": {
+      "mode": "token",
+      "token": "your-secure-token"
+    },
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    }
+  },
+  "skills": {
+    "install": {
+      "nodeManager": "npm"
+    }
+  }
+}
+```
+
+### 关键配置说明
+
+| 配置项 | 说明 |
+| --- | --- |
+| `models.providers.newapi.baseUrl` | New API 部署地址，需包含 `/v1` |
+| `models.providers.newapi.apiKey` | New API 令牌密钥 |
+| `models.providers.newapi.models` | 模型列表，可按需添加多个模型 |
+| `agents.defaults.model.primary` | 默认主模型，格式为 `provider/model-id` |
+| `agents.defaults.model.fallbacks` | 备选模型列表，主模型不可用时自动切换 |
+| `channels.lark.appId` | 飞书应用的 App ID，从飞书开放平台获取 |
+| `channels.lark.appSecret` | 飞书应用的 App Secret |
+| `gateway.port` | 网关监听端口 |
+| `gateway.auth.token` | 网关访问安全令牌 |
+
+### 启动服务
+
+配置完成后，启动 OpenClaw：
+
+```bash
+openclaw start
+```
+
+启动后即可通过配置的渠道与 AI 助手进行交互。
