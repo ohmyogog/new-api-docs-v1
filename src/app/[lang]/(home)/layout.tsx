@@ -6,7 +6,6 @@ import {
   NavbarMenuLink,
   NavbarMenuTrigger,
 } from 'fumadocs-ui/layouts/home/navbar';
-import { Footer } from '@/components/footer';
 import Link from 'fumadocs-core/link';
 import Image from 'next/image';
 import Preview from '@/../public/assets/dashboard-dark.png';
@@ -215,7 +214,6 @@ export default async function Layout({
       >
         {children}
       </HomeLayout>
-      <Footer lang={lang} />
     </div>
   );
 }
