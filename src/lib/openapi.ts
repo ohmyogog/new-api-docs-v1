@@ -1,6 +1,7 @@
 import { createOpenAPI } from 'fumadocs-openapi/server';
 import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { baseUrl } from '@/lib/metadata';
 
 async function walkJsonFiles(dir: string): Promise<string[]> {
   const out: string[] = [];
@@ -39,7 +40,18 @@ export const openapi = createOpenAPI({
     const entries = await Promise.all(
       files.map(async (p) => {
         const raw = await readFile(p, 'utf8');
-        return [p, JSON.parse(raw)] as const;
+        const schema = JSON.parse(raw) as {
+          servers?: Array<{ url: string }>;
+        };
+
+        // Ensure server-side and client-side code samples use the same absolute base URL.
+        // Without this, fumadocs-openapi falls back to "/" and renders "https://loading" on SSR,
+        // but window.location.origin on client, which causes hydration mismatch.
+        if (!Array.isArray(schema.servers) || schema.servers.length === 0) {
+          schema.servers = [{ url: baseUrl.origin }];
+        }
+
+        return [p, schema] as const;
       })
     );
     return Object.fromEntries(entries);

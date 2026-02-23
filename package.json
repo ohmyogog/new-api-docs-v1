@@ -5,6 +5,9 @@
   "scripts": {
     "prebuild": "tsx scripts/prebuild.ts",
     "build": "next build",
+    "pages:build": "opennextjs-cloudflare build",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "dev": "next dev",
     "start": "next start",
     "postinstall": "fumadocs-mdx",
@@ -49,6 +52,7 @@
     "zod": "^4.1.12"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "^1.16.5",
     "@tailwindcss/postcss": "^4.1.16",
     "@types/mdx": "^2.0.13",
     "@types/node": "^24.10.0",
@@ -59,6 +63,7 @@
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^4.1.16",
     "tsx": "^4.19.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "wrangler": "^4"
   }
 }

@@ -7,19 +7,34 @@
 @theme {
   --spacing-fd-container: 1436px;
 
-  /* Pink theme color */
-  --color-brand: hsl(330, 70%, 55%);
-  --color-brand-foreground: white;
-  --color-brand-secondary: hsl(340, 75%, 65%);
-  --color-brand-secondary-foreground: hsl(330, 60%, 20%);
-  --color-brand-200: hsl(330, 65%, 75%);
+  /* Landing page inspired warm palette */
+  --color-brand: #ff5a36;
+  --color-brand-foreground: #ffffff;
+  --color-brand-secondary: #ff8a65;
+  --color-brand-secondary-foreground: #2d241e;
+  --color-brand-200: #ffab91;
 
-  /* Fumadocs UI theme color (for navigation, TOC, etc.) */
-  --color-fd-primary: hsl(330, 70%, 55%);
-  --color-fd-primary-foreground: white;
+  --color-landing-foreground: #2d241e;
+  --color-landing-foreground-200: #6b5e54;
 
-  --color-landing-foreground: #5c3a4a;
-  --color-landing-foreground-200: #a87b8b;
+  --color-fd-background: #fffcf9;
+  --color-fd-foreground: #2d241e;
+  --color-fd-muted: #fff7f1;
+  --color-fd-muted-foreground: #6b5e54;
+  --color-fd-popover: #ffffff;
+  --color-fd-popover-foreground: #2d241e;
+  --color-fd-card: #ffffff;
+  --color-fd-card-foreground: #2d241e;
+  --color-fd-border: #f1e3d6;
+  --color-fd-primary: #ff5a36;
+  --color-fd-primary-foreground: #ffffff;
+  --color-fd-secondary: #fff1e8;
+  --color-fd-secondary-foreground: #2d241e;
+  --color-fd-accent: #ffe4d6;
+  --color-fd-accent-foreground: #2d241e;
+  --color-fd-ring: #ff8a65;
+
+  --background-image-grid-pattern: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(255 90 54 / 0.04)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
 
   /* System fonts */
   --font-sans:
@@ -31,19 +46,31 @@
 }
 
 .dark {
-  --color-landing-foreground: #f5e0ea;
-  --color-landing-foreground-200: #e0b8d0;
+  --color-landing-foreground: #f6e8de;
+  --color-landing-foreground-200: #cfb4a2;
 
-  /* Pink theme color (dark mode) */
-  --color-brand: hsl(330, 85%, 70%);
-  --color-brand-secondary: hsl(340, 80%, 75%);
-  --color-brand-secondary-foreground: hsl(330, 60%, 10%);
-  --color-brand-foreground: black;
-  --color-brand-200: hsl(330, 80%, 85%);
+  --color-brand: #ff8a65;
+  --color-brand-secondary: #ffab91;
+  --color-brand-secondary-foreground: #2d241e;
+  --color-brand-foreground: #2d241e;
+  --color-brand-200: #ffbfad;
 
-  /* Fumadocs UI theme color (for navigation, TOC, etc. - dark mode) */
-  --color-fd-primary: hsl(330, 85%, 70%);
-  --color-fd-primary-foreground: black;
+  --color-fd-background: #1b1511;
+  --color-fd-foreground: #f6e8de;
+  --color-fd-muted: #241d18;
+  --color-fd-muted-foreground: #cfb4a2;
+  --color-fd-popover: #221a15;
+  --color-fd-popover-foreground: #f6e8de;
+  --color-fd-card: #201914;
+  --color-fd-card-foreground: #f6e8de;
+  --color-fd-border: rgb(255 138 101 / 0.24);
+  --color-fd-primary: #ff8a65;
+  --color-fd-primary-foreground: #2d241e;
+  --color-fd-secondary: #2a211b;
+  --color-fd-secondary-foreground: #f6e8de;
+  --color-fd-accent: rgb(255 138 101 / 0.22);
+  --color-fd-accent-foreground: #ffe9de;
+  --color-fd-ring: #ff8a65;
 }
 
 @theme inline {
